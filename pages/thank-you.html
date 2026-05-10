@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Thank You | HUGS</title>
+
+<style>
+:root{
+  --bg:#050b18;
+  --panel:#07131f;
+  --text:#EAF2FF;
+  --muted:rgba(234,242,255,.72);
+  --blue:#00E5FF;
+  --pink:#ff5ca8;
+  --glow:0 0 30px rgba(0,229,255,.35);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  overflow:hidden;
+  font-family:Arial,Helvetica,sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(0,229,255,.15), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(255,92,168,.12), transparent 30%),
+    linear-gradient(180deg,#07131f 0%,#050b18 60%,#02050b 100%);
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+}
+
+.container{
+  position:relative;
+  z-index:2;
+  width:min(92vw,720px);
+  padding:40px 24px;
+  border-radius:28px;
+  background:rgba(10,26,42,.72);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 25px 80px rgba(0,0,0,.45), var(--glow);
+  backdrop-filter:blur(14px);
+}
+
+.logo{
+  font-size:1.1rem;
+  color:var(--blue);
+  font-weight:900;
+  letter-spacing:2px;
+  margin-bottom:14px;
+  text-shadow:0 0 18px rgba(0,229,255,.7);
+}
+
+h1{
+  margin:0;
+  font-size:clamp(2.5rem,7vw,5rem);
+  line-height:.95;
+  letter-spacing:-2px;
+  background:linear-gradient(90deg,#fff,var(--blue),#fff,var(--pink));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.message{
+  margin:22px auto 26px;
+  max-width:560px;
+  color:var(--muted);
+  font-size:1.12rem;
+  line-height:1.7;
+}
+
+.card-wrap{
+  margin:28px auto;
+  width:min(90vw,340px);
+  border-radius:24px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 16px 50px rgba(0,0,0,.45);
+}
+
+.card-wrap img{
+  width:100%;
+  display:block;
+}
+
+.buttons{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:26px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px 18px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:900;
+  transition:.25s ease;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--blue),#65dfff);
+  color:#04121d;
+  box-shadow:var(--glow);
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  color:#fff;
+}
+
+.btn:hover{
+  transform:translateY(-3px) scale(1.02);
+}
+
+.community{
+  margin-top:30px;
+  color:rgba(234,242,255,.68);
+  font-size:.95rem;
+}
+
+.hearts span{
+  position:absolute;
+  bottom:-40px;
+  color:rgba(255,92,168,.55);
+  animation:floatUp linear infinite;
+  pointer-events:none;
+}
+
+@keyframes floatUp{
+  0%{
+    transform:translateY(0) scale(.7);
+    opacity:0;
+  }
+  10%{
+    opacity:1;
+  }
+  100%{
+    transform:translateY(-120vh) scale(1.4);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts"></div>
+
+<div class="container">
+
+  <div class="logo">HUGS ❤️</div>
+
+  <h1>Your HUG Has Been Sent</h1>
+
+  <p class="message">
+    Thank you for spreading kindness, healing, encouragement,
+    and love through the HUGS community.
+  </p>
+
+  <div class="card-wrap">
+    <img src="/assets/cards/community-love.jpg" alt="HUGS Card">
+  </div>
+
+  <div class="buttons">
+    <a class="btn btn-primary"
+       href="/pages/send-a-hug">
+       Send Another Hug
+    </a>
+
+    <a class="btn btn-secondary"
+       href="https://instagram.com/hugslinks"
+       target="_blank">
+       Join The Community
+    </a>
+  </div>
+
+  <div class="community">
+    You are now part of the HUGS community ❤️
+  </div>
+
+</div>
+
+<script>
+const hearts = document.querySelector(".hearts");
+
+for(let i=0;i<35;i++){
+
+  const heart = document.createElement("span");
+
+  heart.innerHTML = i % 2 ? "♥" : "♡";
+
+  heart.style.left = Math.random() * 100 + "vw";
+
+  heart.style.fontSize =
+    (12 + Math.random() * 28) + "px";
+
+  heart.style.animationDuration =
+    (5 + Math.random() * 6) + "s";
+
+  heart.style.animationDelay =
+    Math.random() * 6 + "s";
+
+  hearts.appendChild(heart);
+}
+</script>
+
+</body>
+</html>
