@@ -1,0 +1,13 @@
+{
+  "name": "hugs-cards",
+  "version": "1.0.0",
+  "description": "HUGS digital cards and VIP member system",
+  "main": "index.js",
+  "scripts": {
+    "start": "netlify dev"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0",
+    "stripe": "^17.5.0"
+  }
+}
