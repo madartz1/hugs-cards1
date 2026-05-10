@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HUGS Shop Site</title><style>
+:root{
+  --bg:#050b18;
+  --panel:#07131f;
+  --card:#0A1A2A;
+  --text:#EAF2FF;
+  --muted:rgba(234,242,255,.74);
+  --blue:#00E5FF;
+  --blue2:#3BAEDC;
+  --pink:#ff5ca8;
+  --gold:#ffd166;
+  --line:rgba(255,255,255,.14);
+  --glow:0 0 34px rgba(0,229,255,.32);
+  --pinkglow:0 0 34px rgba(255,92,168,.28);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(0,229,255,.20), transparent 34%),
+    radial-gradient(circle at 80% 10%, rgba(255,92,168,.18), transparent 30%),
+    linear-gradient(180deg,#07131f 0%,#050b18 55%,#02050b 100%);
+  overflow-x:hidden;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom, black, transparent 75%);
+}
+a{color:inherit;text-decoration:none}
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  padding:14px 5vw;
+  border-bottom:1px solid rgba(0,229,255,.16);
+  background:rgba(3,8,18,.78);
+  backdrop-filter:blur(14px);
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--blue);
+  font-weight:900;
+  letter-spacing:1.5px;
+  text-shadow:0 0 16px rgba(0,229,255,.75);
+}
+.logo span{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(0,229,255,.35);
+  box-shadow:inset 0 0 18px rgba(0,229,255,.18), var(--glow);
+}
+nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+nav a{
+  padding:9px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.04);
+  color:#dff8ff;
+  font-size:.92rem;
+}
+.hero{
+  position:relative;
+  z-index:1;
+  max-width:1180px;
+  margin:auto;
+  padding:78px 5vw 34px;
+  text-align:center;
+}
+.tag{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  padding:10px 15px;
+  border-radius:999px;
+  border:1px solid rgba(255,92,168,.35);
+  background:rgba(255,92,168,.08);
+  color:#ffd9e9;
+  font-weight:900;
+  box-shadow:var(--pinkglow);
+}
+h1{
+  margin:18px 0 0;
+  font-size:clamp(2.45rem,8vw,6.2rem);
+  line-height:.92;
+  letter-spacing:-2px;
+  text-shadow:0 0 28px rgba(0,229,255,.45);
+}
+.gradient{
+  background:linear-gradient(90deg,#fff,var(--blue),#fff,var(--pink));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.lead{
+  max-width:780px;
+  margin:20px auto;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:1.15rem;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:0;
+  border-radius:999px;
+  padding:13px 16px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  color:#03111d;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:var(--glow);
+}
+.btn.pink{background:linear-gradient(135deg,var(--pink),#ffb3cf);box-shadow:var(--pinkglow)}
+.btn.ghost{background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(255,255,255,.14);box-shadow:none}
+.cta-row{display:flex;justify-content:center;gap:13px;flex-wrap:wrap;margin-top:24px}
+.grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:22px;
+  padding:30px 5vw 90px;
+  max-width:1280px;
+  margin:auto;
+}
+.card{
+  overflow:hidden;
+  border-radius:26px;
+  background:rgba(10,26,42,.82);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 24px 65px rgba(0,0,0,.34);
+  transition:.28s ease;
+}
+.card:hover{transform:translateY(-6px);border-color:rgba(0,229,255,.38);box-shadow:var(--glow),0 28px 80px rgba(0,0,0,.42)}
+.card img{
+  width:100%;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  display:block;
+  background:#111;
+  transition:transform .45s ease;
+}
+.card:hover img{transform:scale(1.045)}
+.card-body{padding:18px}
+.card-body h3{margin:0 0 8px;font-size:1.22rem}
+.card-body p{margin:0;color:var(--muted);line-height:1.55;min-height:74px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.actions .btn{flex:1;min-width:115px;padding:11px 13px;font-size:.92rem}
+footer{
+  position:relative;
+  z-index:1;
+  border-top:1px solid rgba(255,255,255,.1);
+  padding:26px 5vw;
+  text-align:center;
+  color:var(--muted);
+  background:rgba(3,8,18,.45);
+}
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  place-items:center;
+  z-index:50;
+  background:rgba(0,0,0,.76);
+  padding:18px;
+}
+.modal.open{display:grid}
+.modal-box{
+  width:min(96vw,920px);
+  max-height:94vh;
+  overflow:auto;
+  border-radius:26px;
+  background:#07131f;
+  border:1px solid rgba(0,229,255,.28);
+  box-shadow:var(--glow);
+  padding:16px;
+}
+.modal-img{width:100%;max-height:76vh;object-fit:contain;border-radius:18px;background:#000;display:block}
+.modal-controls{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px 0;flex-wrap:wrap}
+.hearts span{
+  position:fixed;
+  bottom:-35px;
+  z-index:0;
+  color:rgba(255,92,168,.55);
+  animation:floatUp 8s linear infinite;
+  pointer-events:none;
+}
+@keyframes floatUp{0%{transform:translateY(0) scale(.7);opacity:0}12%{opacity:1}100%{transform:translateY(-110vh) scale(1.35);opacity:0}}
+@media(max-width:780px){
+  header{align-items:flex-start;flex-direction:column}
+  nav{justify-content:flex-start}
+  h1{letter-spacing:-1px}
+}
+</style></head>
+<body>
+<header>
+  <a class="logo" href="/"><span>⌂♥</span> HUGS</a>
+  <nav><a href="/pages/send-a-hug">Send A Hug</a><a href="/pages/gallery.html">Gallery</a><a href="/pages/faq.html">FAQ</a></nav>
+</header>
+<section class="hero">
+  <span class="tag">HUGS Online Store</span>
+  <h1><span class="gradient">Give A Hug. Get A Hug.</span></h1>
+  <p class="lead">Community-first digital cards, merch, and healing projects.</p>
+  <div class="cta-row"><a class="btn pink" href="/pages/send-a-hug">Open Send A Hug</a></div>
+</section>
+<footer><p>© HUGS — Help Under Good Service</p></footer>
+</body></html>

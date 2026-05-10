@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Send A Hug | HUGS</title>
+<meta name="description" content="Choose a digital HUGS card and send support, appreciation, healing, or love.">
+<style>
+:root{
+  --bg:#050b18;
+  --panel:#07131f;
+  --card:#0A1A2A;
+  --text:#EAF2FF;
+  --muted:rgba(234,242,255,.74);
+  --blue:#00E5FF;
+  --blue2:#3BAEDC;
+  --pink:#ff5ca8;
+  --gold:#ffd166;
+  --line:rgba(255,255,255,.14);
+  --glow:0 0 34px rgba(0,229,255,.32);
+  --pinkglow:0 0 34px rgba(255,92,168,.28);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(0,229,255,.20), transparent 34%),
+    radial-gradient(circle at 80% 10%, rgba(255,92,168,.18), transparent 30%),
+    linear-gradient(180deg,#07131f 0%,#050b18 55%,#02050b 100%);
+  overflow-x:hidden;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom, black, transparent 75%);
+}
+a{color:inherit;text-decoration:none}
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  padding:14px 5vw;
+  border-bottom:1px solid rgba(0,229,255,.16);
+  background:rgba(3,8,18,.78);
+  backdrop-filter:blur(14px);
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--blue);
+  font-weight:900;
+  letter-spacing:1.5px;
+  text-shadow:0 0 16px rgba(0,229,255,.75);
+}
+.logo span{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(0,229,255,.35);
+  box-shadow:inset 0 0 18px rgba(0,229,255,.18), var(--glow);
+}
+nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+nav a{
+  padding:9px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.04);
+  color:#dff8ff;
+  font-size:.92rem;
+}
+.hero{
+  position:relative;
+  z-index:1;
+  max-width:1180px;
+  margin:auto;
+  padding:78px 5vw 34px;
+  text-align:center;
+}
+.tag{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  padding:10px 15px;
+  border-radius:999px;
+  border:1px solid rgba(255,92,168,.35);
+  background:rgba(255,92,168,.08);
+  color:#ffd9e9;
+  font-weight:900;
+  box-shadow:var(--pinkglow);
+}
+h1{
+  margin:18px 0 0;
+  font-size:clamp(2.45rem,8vw,6.2rem);
+  line-height:.92;
+  letter-spacing:-2px;
+  text-shadow:0 0 28px rgba(0,229,255,.45);
+}
+.gradient{
+  background:linear-gradient(90deg,#fff,var(--blue),#fff,var(--pink));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.lead{
+  max-width:780px;
+  margin:20px auto;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:1.15rem;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:0;
+  border-radius:999px;
+  padding:13px 16px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  color:#03111d;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:var(--glow);
+}
+.btn.pink{background:linear-gradient(135deg,var(--pink),#ffb3cf);box-shadow:var(--pinkglow)}
+.btn.ghost{background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(255,255,255,.14);box-shadow:none}
+.cta-row{display:flex;justify-content:center;gap:13px;flex-wrap:wrap;margin-top:24px}
+.grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:22px;
+  padding:30px 5vw 90px;
+  max-width:1280px;
+  margin:auto;
+}
+.card{
+  overflow:hidden;
+  border-radius:26px;
+  background:rgba(10,26,42,.82);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 24px 65px rgba(0,0,0,.34);
+  transition:.28s ease;
+}
+.card:hover{transform:translateY(-6px);border-color:rgba(0,229,255,.38);box-shadow:var(--glow),0 28px 80px rgba(0,0,0,.42)}
+.card img{
+  width:100%;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  display:block;
+  background:#111;
+  transition:transform .45s ease;
+}
+.card:hover img{transform:scale(1.045)}
+.card-body{padding:18px}
+.card-body h3{margin:0 0 8px;font-size:1.22rem}
+.card-body p{margin:0;color:var(--muted);line-height:1.55;min-height:74px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.actions .btn{flex:1;min-width:115px;padding:11px 13px;font-size:.92rem}
+footer{
+  position:relative;
+  z-index:1;
+  border-top:1px solid rgba(255,255,255,.1);
+  padding:26px 5vw;
+  text-align:center;
+  color:var(--muted);
+  background:rgba(3,8,18,.45);
+}
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  place-items:center;
+  z-index:50;
+  background:rgba(0,0,0,.76);
+  padding:18px;
+}
+.modal.open{display:grid}
+.modal-box{
+  width:min(96vw,920px);
+  max-height:94vh;
+  overflow:auto;
+  border-radius:26px;
+  background:#07131f;
+  border:1px solid rgba(0,229,255,.28);
+  box-shadow:var(--glow);
+  padding:16px;
+}
+.modal-img{width:100%;max-height:76vh;object-fit:contain;border-radius:18px;background:#000;display:block}
+.modal-controls{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px 0;flex-wrap:wrap}
+.hearts span{
+  position:fixed;
+  bottom:-35px;
+  z-index:0;
+  color:rgba(255,92,168,.55);
+  animation:floatUp 8s linear infinite;
+  pointer-events:none;
+}
+@keyframes floatUp{0%{transform:translateY(0) scale(.7);opacity:0}12%{opacity:1}100%{transform:translateY(-110vh) scale(1.35);opacity:0}}
+@media(max-width:780px){
+  header{align-items:flex-start;flex-direction:column}
+  nav{justify-content:flex-start}
+  h1{letter-spacing:-1px}
+}
+</style>
+</head>
+<body>
+<div class="hearts" aria-hidden="true"></div>
+
+<header>
+  <a class="logo" href="/"><span>⌂♥</span> HUGS</a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/pages/gallery.html">Gallery</a>
+    <a href="/pages/faq.html">FAQ</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <span class="tag">Digital Hug Cards ❤️ Updated Gallery</span>
+  <h1><span class="gradient">Send A Digital Hug</span></h1>
+  <p class="lead">Choose a card and share support, appreciation, healing, travel joy, or love. This fixed page uses clean Netlify routing and absolute image paths so the cards display correctly at <strong>/pages/send-a-hug</strong>.</p>
+  <div class="cta-row">
+    <a class="btn pink" href="#cards">Choose a Card</a>
+    <a class="btn" href="YOUR_STRIPE_PAYMENT_LINK_HERE">Stripe Checkout</a>
+  </div>
+</section>
+
+<section class="grid" id="cards">
+
+    <article class="card">
+      <img src="/assets/cards/mother-day-thank-you.jpg" alt="Mother's Day Thank You">
+      <div class="card-body">
+        <h3>Mother's Day Thank You</h3>
+        <p>A HUGS digital card made with bear artwork for this card theme.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(0)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=mother-day-thank-you">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/family-adventure.jpg" alt="Family Adventure">
+      <div class="card-body">
+        <h3>Family Adventure</h3>
+        <p>A HUGS digital card made with bear artwork for this card theme.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(1)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=family-adventure">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/forever-loved.jpg" alt="Forever Loved">
+      <div class="card-body">
+        <h3>Forever Loved</h3>
+        <p>A HUGS digital card made with bear artwork for this card theme.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(2)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=forever-loved">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/sunset-remembrance.jpg" alt="Sunset Remembrance">
+      <div class="card-body">
+        <h3>Sunset Remembrance</h3>
+        <p>A HUGS digital card made with bear artwork for this card theme.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(3)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=sunset-remembrance">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/nature-mom-hug.jpg" alt="Nature Mom Hug">
+      <div class="card-body">
+        <h3>Nature Mom Hug</h3>
+        <p>A HUGS digital card made with bear artwork for this card theme.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(4)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=nature-mom-hug">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/softball-mom.jpg" alt="Softball Mom">
+      <div class="card-body">
+        <h3>Softball Mom</h3>
+        <p>A HUGS digital card made with bear artwork for this card theme.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(5)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=softball-mom">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/garden-love.jpg" alt="Garden Love">
+      <div class="card-body">
+        <h3>Garden Love</h3>
+        <p>A HUGS digital card made with bear artwork for this card theme.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(6)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=garden-love">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/birthday-hug.jpg" alt="Birthday Hug">
+      <div class="card-body">
+        <h3>Birthday Hug</h3>
+        <p>Celebrate someone’s big day with bright HUGS bear birthday energy.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(7)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=birthday-hug">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/healing-support.jpg" alt="Healing Support">
+      <div class="card-body">
+        <h3>Healing Support</h3>
+        <p>Send comfort, peace, and strength during healing or recovery.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(8)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=healing-support">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/thinking-of-you.jpg" alt="Thinking Of You">
+      <div class="card-body">
+        <h3>Thinking Of You</h3>
+        <p>A warm art-themed card to remind someone they are on your mind.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(9)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=thinking-of-you">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/veterans-hug.jpg" alt="Veterans Hug">
+      <div class="card-body">
+        <h3>Veterans Hug</h3>
+        <p>A patriotic thank-you card honoring courage, sacrifice, and service.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(10)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=veterans-hug">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/graduation-hug.jpg" alt="Graduation Hug">
+      <div class="card-body">
+        <h3>Graduation Hug</h3>
+        <p>Celebrate the graduate with pride, encouragement, and love.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(11)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=graduation-hug">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/anniversary-hug.jpg" alt="Anniversary Hug">
+      <div class="card-body">
+        <h3>Anniversary Hug</h3>
+        <p>A romantic HUG card celebrating love and togetherness.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(12)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=anniversary-hug">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/community-love.jpg" alt="Community Love">
+      <div class="card-body">
+        <h3>Community Love</h3>
+        <p>A community support card about belonging, kindness, and care.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(13)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=community-love">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/nyc-tourist-hug.jpg" alt="NYC Tourist Hug">
+      <div class="card-body">
+        <h3>NYC Tourist Hug</h3>
+        <p>A city adventure card for NYC visitors, memories, and travel hugs.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(14)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=nyc-tourist-hug">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="card">
+      <img src="/assets/cards/stay-strong.jpg" alt="Stay Strong">
+      <div class="card-body">
+        <h3>Stay Strong</h3>
+        <p>Encouragement for hard days, hope, and brighter moments ahead.</p>
+        <div class="actions">
+          <button class="btn ghost" onclick="openPreview(15)">Preview</button>
+          <a class="btn pink" href="YOUR_STRIPE_PAYMENT_LINK_HERE?card=stay-strong">Send This Hug</a>
+        </div>
+      </div>
+    </article>
+    
+</section>
+
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-box">
+    <img class="modal-img" id="modalImg" src="" alt="HUGS card preview">
+    <div class="modal-controls">
+      <strong id="modalTitle">Card Preview</strong>
+      <div class="actions">
+        <button class="btn ghost" id="closeModal">Close</button>
+        <a class="btn pink" id="sendModal" href="YOUR_STRIPE_PAYMENT_LINK_HERE">Send This Hug</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© HUGS — Help Under Good Service</p>
+</footer>
+
+<script>
+const cards = [{title:"Mother's Day Thank You", img:"/assets/cards/mother-day-thank-you.jpg", slug:"mother-day-thank-you"},
+{title:"Family Adventure", img:"/assets/cards/family-adventure.jpg", slug:"family-adventure"},
+{title:"Forever Loved", img:"/assets/cards/forever-loved.jpg", slug:"forever-loved"},
+{title:"Sunset Remembrance", img:"/assets/cards/sunset-remembrance.jpg", slug:"sunset-remembrance"},
+{title:"Nature Mom Hug", img:"/assets/cards/nature-mom-hug.jpg", slug:"nature-mom-hug"},
+{title:"Softball Mom", img:"/assets/cards/softball-mom.jpg", slug:"softball-mom"},
+{title:"Garden Love", img:"/assets/cards/garden-love.jpg", slug:"garden-love"},
+{title:"Birthday Hug", img:"/assets/cards/birthday-hug.jpg", slug:"birthday-hug"},
+{title:"Healing Support", img:"/assets/cards/healing-support.jpg", slug:"healing-support"},
+{title:"Thinking Of You", img:"/assets/cards/thinking-of-you.jpg", slug:"thinking-of-you"},
+{title:"Veterans Hug", img:"/assets/cards/veterans-hug.jpg", slug:"veterans-hug"},
+{title:"Graduation Hug", img:"/assets/cards/graduation-hug.jpg", slug:"graduation-hug"},
+{title:"Anniversary Hug", img:"/assets/cards/anniversary-hug.jpg", slug:"anniversary-hug"},
+{title:"Community Love", img:"/assets/cards/community-love.jpg", slug:"community-love"},
+{title:"NYC Tourist Hug", img:"/assets/cards/nyc-tourist-hug.jpg", slug:"nyc-tourist-hug"},
+{title:"Stay Strong", img:"/assets/cards/stay-strong.jpg", slug:"stay-strong"}];
+
+function openPreview(index){
+  const card = cards[index];
+  document.getElementById("modalImg").src = card.img;
+  document.getElementById("modalTitle").textContent = card.title;
+  document.getElementById("sendModal").href = "YOUR_STRIPE_PAYMENT_LINK_HERE?card=" + card.slug;
+  document.getElementById("modal").classList.add("open");
+  document.getElementById("modal").setAttribute("aria-hidden","false");
+}
+
+document.getElementById("closeModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("open");
+  document.getElementById("modal").setAttribute("aria-hidden","true");
+});
+
+document.getElementById("modal").addEventListener("click", (e) => {
+  if(e.target.id === "modal") {
+    e.target.classList.remove("open");
+    e.target.setAttribute("aria-hidden","true");
+  }
+});
+
+const hearts = document.querySelector(".hearts");
+for(let i=0;i<28;i++){
+  const h = document.createElement("span");
+  h.textContent = i % 2 ? "♥" : "♡";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDelay = Math.random() * 8 + "s";
+  h.style.fontSize = (14 + Math.random() * 20) + "px";
+  hearts.appendChild(h);
+}
+</script>
+</body>
+</html>
