@@ -493,7 +493,7 @@ function openPreview(index){
   const card = cards[index];
   document.getElementById("modalImg").src = card.img;
   document.getElementById("modalTitle").textContent = card.title;
-  document.getElementById("sendModal").href = "YOUR_STRIPE_PAYMENT_LINK_HERE?card=" + card.slug;
+  document.getElementById("sendModal").href = "https://buy.stripe.com/3cIfZgdhi7Usf8XbMQ8ww03?card=" + card.slug;
   document.getElementById("modal").classList.add("open");
   document.getElementById("modal").setAttribute("aria-hidden","false");
 }
