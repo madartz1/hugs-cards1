@@ -1,457 +1,929 @@
 <!doctype html>
-<html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>HUGS Shop Site</title><style>
-:root{
-  --bg:#050b18;
-  --panel:#07131f;
-  --card:#0A1A2A;
-  --text:#EAF2FF;
-  --muted:rgba(234,242,255,.74);
-  --blue:#00E5FF;
-  --blue2:#3BAEDC;
-  --pink:#ff5ca8;
-  --gold:#ffd166;
-  --line:rgba(255,255,255,.14);
-  --glow:0 0 34px rgba(0,229,255,.32);
-  --pinkglow:0 0 34px rgba(255,92,168,.28);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  min-height:100vh;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at 20% 0%, rgba(0,229,255,.20), transparent 34%),
-    radial-gradient(circle at 80% 10%, rgba(255,92,168,.18), transparent 30%),
-    linear-gradient(180deg,#07131f 0%,#050b18 55%,#02050b 100%);
-  overflow-x:hidden;
-}
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background-image:
-    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-  background-size:42px 42px;
-  mask-image:linear-gradient(to bottom, black, transparent 75%);
-}
-a{color:inherit;text-decoration:none}
-header{
-  position:sticky;
-  top:0;
-  z-index:20;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
-  padding:14px 5vw;
-  border-bottom:1px solid rgba(0,229,255,.16);
-  background:rgba(3,8,18,.78);
-  backdrop-filter:blur(14px);
-}
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:var(--blue);
-  font-weight:900;
-  letter-spacing:1.5px;
-  text-shadow:0 0 16px rgba(0,229,255,.75);
-}
-.logo span{
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  border:1px solid rgba(0,229,255,.35);
-  box-shadow:inset 0 0 18px rgba(0,229,255,.18), var(--glow);
-}
-nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-nav a{
-  padding:9px 12px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.04);
-  color:#dff8ff;
-  font-size:.92rem;
-}
-.hero{
-  position:relative;
-  z-index:1;
-  max-width:1180px;
-  margin:auto;
-  padding:78px 5vw 34px;
-  text-align:center;
-}
-.tag{
-  display:inline-flex;
-  gap:8px;
-  align-items:center;
-  padding:10px 15px;
-  border-radius:999px;
-  border:1px solid rgba(255,92,168,.35);
-  background:rgba(255,92,168,.08);
-  color:#ffd9e9;
-  font-weight:900;
-  box-shadow:var(--pinkglow);
-}
-h1{
-  margin:18px 0 0;
-  font-size:clamp(2.45rem,8vw,6.2rem);
-  line-height:.92;
-  letter-spacing:-2px;
-  text-shadow:0 0 28px rgba(0,229,255,.45);
-}
-.gradient{
-  background:linear-gradient(90deg,#fff,var(--blue),#fff,var(--pink));
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-.lead{
-  max-width:780px;
-  margin:20px auto;
-  color:var(--muted);
-  line-height:1.7;
-  font-size:1.15rem;
-}
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  border:0;
-  border-radius:999px;
-  padding:13px 16px;
-  background:linear-gradient(135deg,var(--blue),var(--blue2));
-  color:#03111d;
-  font-weight:900;
-  cursor:pointer;
-  box-shadow:var(--glow);
-}
-.btn.pink{background:linear-gradient(135deg,var(--pink),#ffb3cf);box-shadow:var(--pinkglow)}
-.btn.ghost{background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(255,255,255,.14);box-shadow:none}
-.cta-row{display:flex;justify-content:center;gap:13px;flex-wrap:wrap;margin-top:24px}
-.grid{
-  position:relative;
-  z-index:1;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:22px;
-  padding:30px 5vw 90px;
-  max-width:1280px;
-  margin:auto;
-}
-.card{
-  overflow:hidden;
-  border-radius:26px;
-  background:rgba(10,26,42,.82);
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 24px 65px rgba(0,0,0,.34);
-  transition:.28s ease;
-}
-.card:hover{transform:translateY(-6px);border-color:rgba(0,229,255,.38);box-shadow:var(--glow),0 28px 80px rgba(0,0,0,.42)}
-.card img{
-  width:100%;
-  aspect-ratio:3/4;
-  object-fit:cover;
-  display:block;
-  background:#111;
-  transition:transform .45s ease;
-}
-.card:hover img{transform:scale(1.045)}
-.card-body{padding:18px}
-.card-body h3{margin:0 0 8px;font-size:1.22rem}
-.card-body p{margin:0;color:var(--muted);line-height:1.55;min-height:74px}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.actions .btn{flex:1;min-width:115px;padding:11px 13px;font-size:.92rem}
-footer{
-  position:relative;
-  z-index:1;
-  border-top:1px solid rgba(255,255,255,.1);
-  padding:26px 5vw;
-  text-align:center;
-  color:var(--muted);
-  background:rgba(3,8,18,.45);
-}
-.modal{
-  position:fixed;
-  inset:0;
-  display:none;
-  place-items:center;
-  z-index:50;
-  background:rgba(0,0,0,.76);
-  padding:18px;
-}
-.modal.open{display:grid}
-.modal-box{
-  width:min(96vw,920px);
-  max-height:94vh;
-  overflow:auto;
-  border-radius:26px;
-  background:#07131f;
-  border:1px solid rgba(0,229,255,.28);
-  box-shadow:var(--glow);
-  padding:16px;
-}
-.modal-img{width:100%;max-height:76vh;object-fit:contain;border-radius:18px;background:#000;display:block}
-.modal-controls{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 4px 0;flex-wrap:wrap}
-.hearts span{
-  position:fixed;
-  bottom:-35px;
-  z-index:0;
-  color:rgba(255,92,168,.55);
-  animation:floatUp 8s linear infinite;
-  pointer-events:none;
-}
-@keyframes floatUp{0%{transform:translateY(0) scale(.7);opacity:0}12%{opacity:1}100%{transform:translateY(-110vh) scale(1.35);opacity:0}}
-@media(max-width:780px){
-  header{align-items:flex-start;flex-direction:column}
-  nav{justify-content:flex-start}
-  h1{letter-spacing:-1px}
-}
-  /* =========================
-   HUGS VISITOR CONTROLS
-========================= */
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 
-.site-controls{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-}
+  <title>HUGS | Help Under Good Service</title>
+  <meta name="description" content="HUGS is a community-first platform built from real struggle, love, faith, and service. Support real world help projects, send digital hugs, shop merch, and help build resources for those in need." />
 
-.control-btn{
-  border:none;
-  cursor:pointer;
-  padding:9px 12px;
-  border-radius:999px;
-  font-weight:800;
-  font-size:.82rem;
-  color:#00131a;
-  background:linear-gradient(90deg, #00E5FF, #00BFFF);
-  box-shadow:0 0 16px rgba(0,229,255,.25);
-}
+  <style>
+    :root{
+      --bg:#050b18;
+      --panel:#07131f;
+      --card:#0A1A2A;
+      --text:#EAF2FF;
+      --muted:rgba(234,242,255,.74);
+      --soft:rgba(234,242,255,.56);
+      --blue:#00E5FF;
+      --blue2:#3BAEDC;
+      --pink:#ff5ca8;
+      --gold:#ffd166;
+      --green:#7CFFB2;
+      --line:rgba(255,255,255,.14);
+      --glass:rgba(255,255,255,.07);
+      --glow:0 0 34px rgba(0,229,255,.32);
+      --pinkglow:0 0 34px rgba(255,92,168,.28);
+      --shadow:0 24px 65px rgba(0,0,0,.34);
+      --radius:26px;
+    }
 
-.control-btn:hover{
-  filter:brightness(1.08);
-  transform:translateY(-1px);
-}
+    html[data-theme="light"]{
+      --bg:#F7FBFF;
+      --panel:#FFFFFF;
+      --card:#FFFFFF;
+      --text:#0B2A4A;
+      --muted:rgba(11,42,74,.74);
+      --soft:rgba(11,42,74,.58);
+      --line:rgba(11,42,74,.14);
+      --glass:rgba(255,255,255,.82);
+      --shadow:0 18px 50px rgba(11,42,74,.12);
+      --glow:0 0 24px rgba(0,191,255,.18);
+      --pinkglow:0 0 24px rgba(255,92,168,.14);
+    }
 
-/* Stops floating hearts on all pages */
-body.hearts-off .heart,
-body.hearts-off .floating-heart,
-body.hearts-off .hearts span{
-  display:none !important;
-  animation:none !important;
-}
+    *{
+      box-sizing:border-box;
+    }
 
-/* =========================
-   DAY MODE / LIGHT MODE
-========================= */
+    html{
+      scroll-behavior:smooth;
+    }
 
-html[data-theme="light"]{
-  --bg:#F7FBFF;
-  --bg2:#EEF7FF;
-  --panel:#FFFFFF;
-  --card:#FFFFFF;
-  --text:#0B2A4A;
-  --muted:rgba(11,42,74,.76);
-  --soft:rgba(11,42,74,.58);
-  --line:rgba(11,42,74,.14);
-  --glass:rgba(255,255,255,.82);
-  --shadow:0 18px 50px rgba(11,42,74,.12);
-}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(0,229,255,.20), transparent 34%),
+        radial-gradient(circle at 80% 10%, rgba(255,92,168,.18), transparent 30%),
+        linear-gradient(180deg,#07131f 0%,#050b18 55%,#02050b 100%);
+      overflow-x:hidden;
+    }
 
-/* Force older pages to become eye-friendly too */
-html[data-theme="light"] body{
-  color:#0B2A4A !important;
-  background:
-    radial-gradient(circle at top left, rgba(0,191,255,.16), transparent 34%),
-    radial-gradient(circle at top right, rgba(255,211,106,.18), transparent 30%),
-    linear-gradient(180deg, #F7FBFF 0%, #EEF7FF 48%, #FFFFFF 100%) !important;
-}
+    html[data-theme="light"] body{
+      color:#0B2A4A;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(0,191,255,.16), transparent 34%),
+        radial-gradient(circle at 80% 10%, rgba(255,211,106,.22), transparent 30%),
+        linear-gradient(180deg,#F7FBFF 0%,#EEF7FF 52%,#FFFFFF 100%);
+    }
 
-html[data-theme="light"] header{
-  background:rgba(255,255,255,.82) !important;
-  border-bottom:1px solid rgba(11,42,74,.12) !important;
-}
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:42px 42px;
+      mask-image:linear-gradient(to bottom, black, transparent 75%);
+      z-index:0;
+    }
 
-html[data-theme="light"] .card,
-html[data-theme="light"] .hero-card,
-html[data-theme="light"] .form-card,
-html[data-theme="light"] .story,
-html[data-theme="light"] .progress-box,
-html[data-theme="light"] .transparency,
-html[data-theme="light"] .closing-box,
-html[data-theme="light"] .impact-card,
-html[data-theme="light"] .tier,
-html[data-theme="light"] section{
-  color:#0B2A4A;
-}
+    html[data-theme="light"] body:before{
+      background-image:
+        linear-gradient(rgba(11,42,74,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(11,42,74,.04) 1px, transparent 1px);
+    }
 
-html[data-theme="light"] .card,
-html[data-theme="light"] .hero-card,
-html[data-theme="light"] .form-card,
-html[data-theme="light"] .story,
-html[data-theme="light"] .progress-box,
-html[data-theme="light"] .transparency,
-html[data-theme="light"] .closing-box,
-html[data-theme="light"] .impact-card,
-html[data-theme="light"] .tier{
-  background:rgba(255,255,255,.86) !important;
-  border-color:rgba(11,42,74,.13) !important;
-  box-shadow:0 18px 50px rgba(11,42,74,.12) !important;
-}
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
 
-html[data-theme="light"] p,
-html[data-theme="light"] .section-lead,
-html[data-theme="light"] .hero p,
-html[data-theme="light"] .hero-card p,
-html[data-theme="light"] .card p,
-html[data-theme="light"] .impact-card p,
-html[data-theme="light"] .quote-sub,
-html[data-theme="light"] .notice,
-html[data-theme="light"] footer,
-html[data-theme="light"] .brand span,
-html[data-theme="light"] .nav-links a{
-  color:rgba(11,42,74,.74) !important;
-}
+    .page{
+      position:relative;
+      z-index:1;
+    }
 
-html[data-theme="light"] h1,
-html[data-theme="light"] h2,
-html[data-theme="light"] h3,
-html[data-theme="light"] strong,
-html[data-theme="light"] label,
-html[data-theme="light"] .founder-quote{
-  color:#0B2A4A !important;
-}
+    header{
+      position:sticky;
+      top:0;
+      z-index:20;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      padding:14px 5vw;
+      border-bottom:1px solid rgba(0,229,255,.16);
+      background:rgba(3,8,18,.78);
+      backdrop-filter:blur(14px);
+    }
 
-html[data-theme="light"] input,
-html[data-theme="light"] textarea,
-html[data-theme="light"] select{
-  background:#FFFFFF !important;
-  color:#0B2A4A !important;
-  border-color:rgba(11,42,74,.18) !important;
-}
+    html[data-theme="light"] header{
+      background:rgba(255,255,255,.84);
+      border-bottom:1px solid rgba(11,42,74,.12);
+    }
 
-html[data-theme="light"] .btn-secondary{
-  color:#0B2A4A !important;
-  background:rgba(11,42,74,.06) !important;
-  border-color:rgba(11,42,74,.14) !important;
-}
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--blue);
+      font-weight:900;
+      letter-spacing:1.5px;
+      text-shadow:0 0 16px rgba(0,229,255,.75);
+      white-space:nowrap;
+    }
 
-html[data-theme="light"] .control-btn{
-  color:white;
-  background:linear-gradient(90deg, #0B2A4A, #00BFFF);
-}
+    html[data-theme="light"] .logo{
+      color:#0B2A4A;
+      text-shadow:none;
+    }
 
-@media(max-width:900px){
-  .site-controls{
-    width:100%;
-  }
+    .logo span{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      border:1px solid rgba(0,229,255,.35);
+      box-shadow:inset 0 0 18px rgba(0,229,255,.18), var(--glow);
+    }
 
-  .control-btn{
-    flex:1;
-  }
-}
-</style></head>
+    html[data-theme="light"] .logo span{
+      border-color:rgba(11,42,74,.18);
+      box-shadow:0 0 18px rgba(0,191,255,.18);
+      background:rgba(255,255,255,.7);
+    }
+
+    nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:center;
+    }
+
+    nav a{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      color:#dff8ff;
+      font-size:.92rem;
+      transition:.25s ease;
+    }
+
+    nav a:hover{
+      transform:translateY(-1px);
+      border-color:rgba(0,229,255,.36);
+      box-shadow:0 0 18px rgba(0,229,255,.12);
+    }
+
+    html[data-theme="light"] nav a{
+      color:#0B2A4A;
+      background:rgba(11,42,74,.06);
+      border-color:rgba(11,42,74,.14);
+    }
+
+    .site-controls{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .control-btn{
+      border:none;
+      cursor:pointer;
+      padding:9px 12px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:.82rem;
+      color:#00131a;
+      background:linear-gradient(90deg, var(--blue), var(--blue2));
+      box-shadow:0 0 16px rgba(0,229,255,.25);
+      transition:.25s ease;
+    }
+
+    .control-btn:hover{
+      filter:brightness(1.08);
+      transform:translateY(-1px);
+    }
+
+    html[data-theme="light"] .control-btn{
+      color:white;
+      background:linear-gradient(90deg, #0B2A4A, #00BFFF);
+    }
+
+    .hero{
+      max-width:1180px;
+      margin:auto;
+      padding:78px 5vw 42px;
+      text-align:center;
+    }
+
+    .tag{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:10px 15px;
+      border-radius:999px;
+      border:1px solid rgba(255,92,168,.35);
+      background:rgba(255,92,168,.08);
+      color:#ffd9e9;
+      font-weight:900;
+      box-shadow:var(--pinkglow);
+    }
+
+    html[data-theme="light"] .tag{
+      color:#8b2451;
+      background:rgba(255,92,168,.10);
+      border-color:rgba(139,36,81,.18);
+    }
+
+    h1{
+      margin:18px 0 0;
+      font-size:clamp(2.45rem,8vw,6.2rem);
+      line-height:.92;
+      letter-spacing:-2px;
+      text-shadow:0 0 28px rgba(0,229,255,.45);
+    }
+
+    html[data-theme="light"] h1{
+      text-shadow:none;
+    }
+
+    .gradient{
+      background:linear-gradient(90deg,#fff,var(--blue),#fff,var(--pink));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    html[data-theme="light"] .gradient{
+      background:linear-gradient(90deg,#0B2A4A,#00A6D6,#0B2A4A,#B83273);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .lead{
+      max-width:820px;
+      margin:20px auto;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:1.15rem;
+    }
+
+    .cta-row{
+      display:flex;
+      justify-content:center;
+      gap:13px;
+      flex-wrap:wrap;
+      margin-top:24px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:0;
+      border-radius:999px;
+      padding:13px 16px;
+      background:linear-gradient(135deg,var(--blue),var(--blue2));
+      color:#03111d;
+      font-weight:900;
+      cursor:pointer;
+      box-shadow:var(--glow);
+      transition:.25s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      filter:brightness(1.08);
+    }
+
+    .btn.pink{
+      background:linear-gradient(135deg,var(--pink),#ffb3cf);
+      box-shadow:var(--pinkglow);
+      color:#260010;
+    }
+
+    .btn.ghost{
+      background:rgba(255,255,255,.05);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:none;
+    }
+
+    html[data-theme="light"] .btn.ghost{
+      color:#0B2A4A;
+      background:rgba(11,42,74,.06);
+      border-color:rgba(11,42,74,.14);
+    }
+
+    section{
+      max-width:1180px;
+      margin:0 auto;
+      padding:38px 5vw;
+    }
+
+    .section-title{
+      margin:0 0 12px;
+      font-size:clamp(1.85rem,4vw,3.2rem);
+      letter-spacing:-1px;
+    }
+
+    .section-lead{
+      margin:0;
+      color:var(--muted);
+      line-height:1.75;
+      font-size:1.06rem;
+      max-width:900px;
+    }
+
+    .feature-panel{
+      margin-top:24px;
+      border-radius:var(--radius);
+      background:
+        radial-gradient(circle at top left, rgba(0,229,255,.14), transparent 38%),
+        rgba(10,26,42,.82);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);
+      padding:26px;
+    }
+
+    html[data-theme="light"] .feature-panel{
+      background:rgba(255,255,255,.88);
+      border-color:rgba(11,42,74,.13);
+      box-shadow:var(--shadow);
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:24px;
+      align-items:center;
+    }
+
+    .mission-card{
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.055);
+      padding:22px;
+    }
+
+    html[data-theme="light"] .mission-card{
+      background:rgba(11,42,74,.045);
+      border-color:rgba(11,42,74,.12);
+    }
+
+    .mission-card h3{
+      margin:0 0 9px;
+      font-size:1.35rem;
+    }
+
+    .mission-card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.68;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:22px;
+      margin-top:24px;
+    }
+
+    .card{
+      overflow:hidden;
+      border-radius:26px;
+      background:rgba(10,26,42,.82);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);
+      transition:.28s ease;
+    }
+
+    html[data-theme="light"] .card{
+      background:rgba(255,255,255,.88);
+      border-color:rgba(11,42,74,.13);
+      box-shadow:var(--shadow);
+    }
+
+    .card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(0,229,255,.38);
+      box-shadow:var(--glow),0 28px 80px rgba(0,0,0,.42);
+    }
+
+    html[data-theme="light"] .card:hover{
+      box-shadow:0 24px 60px rgba(11,42,74,.16);
+    }
+
+    .card-img{
+      min-height:170px;
+      display:grid;
+      place-items:center;
+      font-size:3.4rem;
+      background:
+        radial-gradient(circle at center, rgba(0,229,255,.16), transparent 48%),
+        rgba(255,255,255,.04);
+    }
+
+    html[data-theme="light"] .card-img{
+      background:
+        radial-gradient(circle at center, rgba(0,191,255,.16), transparent 48%),
+        rgba(11,42,74,.035);
+    }
+
+    .card-body{
+      padding:20px;
+    }
+
+    .card-body h3{
+      margin:0 0 8px;
+      font-size:1.22rem;
+    }
+
+    .card-body p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.58;
+      min-height:76px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:16px;
+    }
+
+    .actions .btn{
+      flex:1;
+      min-width:130px;
+      padding:11px 13px;
+      font-size:.92rem;
+    }
+
+    .impact-list{
+      display:grid;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .impact-item{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:15px;
+      border-radius:18px;
+      background:rgba(255,255,255,.055);
+      border:1px solid rgba(255,255,255,.1);
+    }
+
+    html[data-theme="light"] .impact-item{
+      background:rgba(11,42,74,.04);
+      border-color:rgba(11,42,74,.10);
+    }
+
+    .impact-item strong{
+      display:block;
+      margin-bottom:4px;
+    }
+
+    .impact-item p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.55;
+    }
+
+    .icon{
+      width:38px;
+      height:38px;
+      display:grid;
+      place-items:center;
+      border-radius:14px;
+      background:rgba(0,229,255,.10);
+      border:1px solid rgba(0,229,255,.20);
+      flex:0 0 auto;
+    }
+
+    .transparency-box{
+      margin-top:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(255,211,102,.22);
+      background:
+        radial-gradient(circle at top left, rgba(255,211,102,.12), transparent 38%),
+        rgba(255,255,255,.055);
+      padding:26px;
+      box-shadow:var(--shadow);
+    }
+
+    html[data-theme="light"] .transparency-box{
+      background:
+        radial-gradient(circle at top left, rgba(255,211,102,.20), transparent 38%),
+        rgba(255,255,255,.88);
+      border-color:rgba(11,42,74,.12);
+    }
+
+    .transparency-box ul{
+      margin:16px 0 0;
+      padding-left:20px;
+      color:var(--muted);
+      line-height:1.8;
+    }
+
+    .final-cta{
+      text-align:center;
+      padding-bottom:76px;
+    }
+
+    .final-box{
+      border-radius:32px;
+      border:1px solid rgba(0,229,255,.24);
+      background:
+        radial-gradient(circle at top, rgba(0,229,255,.15), transparent 52%),
+        rgba(255,255,255,.06);
+      padding:38px 24px;
+      box-shadow:0 0 45px rgba(0,229,255,.11);
+    }
+
+    html[data-theme="light"] .final-box{
+      background:
+        radial-gradient(circle at top, rgba(0,191,255,.16), transparent 52%),
+        rgba(255,255,255,.88);
+      border-color:rgba(11,42,74,.13);
+    }
+
+    .final-box h2{
+      margin:0;
+      font-size:clamp(2rem,5vw,4rem);
+      letter-spacing:-1px;
+    }
+
+    .final-box p{
+      color:var(--muted);
+      line-height:1.75;
+      font-size:1.08rem;
+      max-width:760px;
+      margin:18px auto 0;
+    }
+
+    footer{
+      border-top:1px solid rgba(255,255,255,.1);
+      padding:26px 5vw;
+      text-align:center;
+      color:var(--muted);
+      background:rgba(3,8,18,.45);
+    }
+
+    html[data-theme="light"] footer{
+      background:rgba(255,255,255,.70);
+      border-top:1px solid rgba(11,42,74,.10);
+    }
+
+    @media(max-width:900px){
+      header{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      nav{
+        justify-content:flex-start;
+      }
+
+      .site-controls{
+        width:100%;
+      }
+
+      .control-btn{
+        flex:1;
+      }
+
+      .split{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(max-width:640px){
+      h1{
+        letter-spacing:-1px;
+      }
+
+      .hero{
+        padding-top:54px;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .actions .btn{
+        width:auto;
+      }
+    }
+  </style>
+</head>
+
 <body>
-<header>
-  <a class="logo" href="/"><span>⌂♥</span> HUGS</a>
-  <nav><a href="/pages/send-a-hug">Send A Hug</a><a href="/pages/about.html">About</a><a href="/pages/gallery.html">Gallery</a><a href="/pages/faq.html">FAQ</a></nav>
-<div class="site-controls">
-  <button id="heartToggle" class="control-btn" type="button">
-    Stop Hearts
-  </button>
+  <div class="page">
 
-  <button id="themeToggle" class="control-btn" type="button">
-    Day Mode
-  </button>
-</div>
-</header>
-<section class="hero">
-  <span class="tag">HUGS Online Store</span>
-  <h1><span class="gradient">Give A Hug. Get A Hug.</span></h1>
-  <p class="lead">Community-first digital cards, merch, and healing projects.</p>
-  <div class="cta-row"><a class="btn pink" href="/pages/send-a-hug">Open Send A Hug</a></div>
-</section>
-<footer><p>© HUGS — Help Under Good Service</p></footer>
+    <header>
+      <a class="logo" href="/">
+        <span>⌂♥</span>
+        HUGS
+      </a>
+
+      <nav>
+        <a href="/pages/about.html">About</a>
+        <a href="/pages/real-world-help.html">Real World Help</a>
+        <a href="/pages/donate-to-paint.html">Donate to Paint</a>
+        <a href="/pages/send-a-hug.html">Send A Hug</a>
+        <a href="/pages/gallery.html">Gallery</a>
+        <a href="/pages/faq.html">FAQ</a>
+      </nav>
+
+      <div class="site-controls">
+        <button id="themeToggle" class="control-btn" type="button">
+          Day Mode
+        </button>
+      </div>
+    </header>
+
+    <main>
+
+      <section class="hero">
+        <span class="tag">HUGS Online Store + Real World Help Projects</span>
+
+        <h1>
+          <span class="gradient">Give A Hug. Get A Hug.</span>
+        </h1>
+
+        <p class="lead">
+          HUGS stands for Help Under Good Service. We are building a community-first platform for digital cards, creative projects, real world help, outreach resources, and support for people facing hard times.
+        </p>
+
+        <div class="cta-row">
+          <a class="btn pink" href="/pages/real-world-help.html">Support Real World Help</a>
+          <a class="btn" href="/pages/send-a-hug.html">Send A Hug</a>
+          <a class="btn ghost" href="/pages/about.html">Read Our Story</a>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Real World Help Comes First</h2>
+        <p class="section-lead">
+          HUGS is not just a website. It is being built from lived experience, shelter survival, family pressure, creative struggle, and the belief that compassion should turn into action.
+        </p>
+
+        <div class="feature-panel split">
+          <div>
+            <h2 class="section-title">Help Us Turn HUGS Into Real Help</h2>
+            <p class="section-lead">
+              Your support helps us build outreach tools, resource pages, digital forms, care project ideas, and support systems for people dealing with homelessness, trauma, family struggles, lack of compassion, and emergency needs.
+            </p>
+
+            <div class="cta-row" style="justify-content:flex-start;">
+              <a class="btn pink" href="/pages/real-world-help.html">Fund Help Projects</a>
+              <a class="btn ghost" href="#where-it-goes">See Where Support Goes</a>
+            </div>
+          </div>
+
+          <div class="mission-card">
+            <h3>Project Support Contribution</h3>
+            <p>
+              Until HUGS is officially operating through a registered nonprofit entity, support should be presented as project support, outreach support, and community mission funding — not tax-deductible charitable donations.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Choose How You Want To Support</h2>
+        <p class="section-lead">
+          Visitors can support HUGS in different ways: helping real world outreach, funding the website and art projects, sending a digital hug, or shopping community merch.
+        </p>
+
+        <div class="grid">
+
+          <article class="card">
+            <div class="card-img">🤝</div>
+            <div class="card-body">
+              <h3>Real World Help Projects</h3>
+              <p>
+                Support outreach, resource connections, care project planning, and tools for people facing hard times.
+              </p>
+              <div class="actions">
+                <a class="btn pink" href="/pages/real-world-help.html">Support Help</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-img">🎨</div>
+            <div class="card-body">
+              <h3>Donate to Paint</h3>
+              <p>
+                Help us paint the next layer of HUGS by funding website growth, art projects, design, and platform improvements.
+              </p>
+              <div class="actions">
+                <a class="btn" href="/pages/donate-to-paint.html">Donate to Paint</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-img">💌</div>
+            <div class="card-body">
+              <h3>Send A Hug</h3>
+              <p>
+                Send a digital card of support, love, healing, appreciation, or encouragement to someone who needs it.
+              </p>
+              <div class="actions">
+                <a class="btn" href="/pages/send-a-hug.html">Send A Hug</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-img">🛍️</div>
+            <div class="card-body">
+              <h3>Shop HUGS</h3>
+              <p>
+                Support the mission through HUGS merch, creative drops, and products connected to healing and community.
+              </p>
+              <div class="actions">
+                <a class="btn ghost" href="/pages/shop.html">Visit Shop</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <section id="where-it-goes">
+        <h2 class="section-title">Where Support May Go</h2>
+        <p class="section-lead">
+          HUGS is being built transparently from the ground up. Support helps us keep projects moving and develop tools that can help people online and in real life.
+        </p>
+
+        <div class="impact-list">
+
+          <div class="impact-item">
+            <div class="icon">🧭</div>
+            <div>
+              <strong>Resource Pages</strong>
+              <p>Building pages that connect people to food, shelter, clothing, crisis support, caregiver help, and local services.</p>
+            </div>
+          </div>
+
+          <div class="impact-item">
+            <div class="icon">📄</div>
+            <div>
+              <strong>Outreach Materials</strong>
+              <p>Creating flyers, QR codes, digital forms, printed materials, and simple tools that help people find support faster.</p>
+            </div>
+          </div>
+
+          <div class="impact-item">
+            <div class="icon">💌</div>
+            <div>
+              <strong>Digital Hug Cards</strong>
+              <p>Improving the Send A Hug experience so people can send love, appreciation, support, and healing messages.</p>
+            </div>
+          </div>
+
+          <div class="impact-item">
+            <div class="icon">🖼️</div>
+            <div>
+              <strong>Creative + Artist Projects</strong>
+              <p>Building space for artists, community creativity, healing artwork, galleries, voting, and future creative opportunities.</p>
+            </div>
+          </div>
+
+          <div class="impact-item">
+            <div class="icon">🏗️</div>
+            <div>
+              <strong>Website Maintenance</strong>
+              <p>Helping cover hosting, domains, development tools, design upgrades, bug fixes, and ongoing platform improvements.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="transparency-box">
+          <h2 class="section-title">Transparency Note</h2>
+          <p class="section-lead">
+            HUGS is a growing community project. Contributions support project development, outreach, resources, website improvements, creative work, and real world help efforts.
+          </p>
+
+          <ul>
+            <li>Support is used to help build and maintain HUGS projects.</li>
+            <li>Support may help fund outreach materials, website tools, and community resources.</li>
+            <li>HUGS is not claiming contributions are tax-deductible unless officially operating through a registered nonprofit entity.</li>
+            <li>Our goal is to grow with honesty, service, creativity, and community trust.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Built From Struggle. Made With Love.</h2>
+        <p class="section-lead">
+          HUGS was created by a struggling artist and family who understand what it means to survive pressure, trauma, shelter hardship, poor treatment, and systems that lack compassion. This brand is tough, faithful, creative, and built to turn pain into purpose.
+        </p>
+
+        <div class="feature-panel">
+          <div class="grid" style="margin-top:0;">
+
+            <div class="mission-card">
+              <h3>Good Business</h3>
+              <p>
+                HUGS supports fair exchange, honest service, and business practices that respect people instead of draining them.
+              </p>
+            </div>
+
+            <div class="mission-card">
+              <h3>Real Compassion</h3>
+              <p>
+                Compassion should be active. A hug can be a message, a resource, a product, a connection, or a reason to keep going.
+              </p>
+            </div>
+
+            <div class="mission-card">
+              <h3>Community Power</h3>
+              <p>
+                The bigger goal is to build a community-powered platform that helps people support each other in real ways.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <div class="final-box">
+          <h2>Help Build HUGS</h2>
+          <p>
+            Every visit, share, purchase, message, and project support contribution helps HUGS grow into something stronger for families, artists, struggling people, and those who need help at different points in life.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn pink" href="/pages/real-world-help.html">Support Real World Help</a>
+            <a class="btn" href="/pages/donate-to-paint.html">Donate to Paint</a>
+            <a class="btn ghost" href="/pages/about.html">About HUGS</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> HUGS — Help Under Good Service. Built with love, faith, conviction, and community support.</p>
+    </footer>
+
+  </div>
+
   <script>
-/* =========================
-   HUGS GLOBAL CONTROLS
-   Hearts On/Off + Day/Night Mode
-========================= */
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-(function(){
-  const root = document.documentElement;
-  const body = document.body;
+    /*
+      HUGS DAY / NIGHT MODE
+      No heart button.
+      No floating hearts.
+      Visitor theme choice saves in browser.
+    */
 
-  const heartBtn = document.getElementById("heartToggle");
-  const themeBtn = document.getElementById("themeToggle");
+    (function(){
+      const root = document.documentElement;
+      const themeBtn = document.getElementById("themeToggle");
 
-  const savedTheme = localStorage.getItem("hugs-theme") || "dark";
-  const savedHearts = localStorage.getItem("hugs-hearts") || "on";
+      const savedTheme = localStorage.getItem("hugs-theme") || "dark";
+      root.setAttribute("data-theme", savedTheme);
 
-  root.setAttribute("data-theme", savedTheme);
+      function updateThemeButton(){
+        if(!themeBtn) return;
 
-  if(savedHearts === "off"){
-    body.classList.add("hearts-off");
-  }
+        const currentTheme = root.getAttribute("data-theme");
 
-  function updateThemeButton(){
-    if(!themeBtn) return;
+        if(currentTheme === "light"){
+          themeBtn.textContent = "Night Mode";
+        }else{
+          themeBtn.textContent = "Day Mode";
+        }
+      }
 
-    const currentTheme = root.getAttribute("data-theme");
+      if(themeBtn){
+        themeBtn.addEventListener("click", function(){
+          const currentTheme = root.getAttribute("data-theme");
+          const nextTheme = currentTheme === "light" ? "dark" : "light";
 
-    if(currentTheme === "light"){
-      themeBtn.textContent = "Night Mode";
-    }else{
-      themeBtn.textContent = "Day Mode";
-    }
-  }
+          root.setAttribute("data-theme", nextTheme);
+          localStorage.setItem("hugs-theme", nextTheme);
 
-  function updateHeartButton(){
-    if(!heartBtn) return;
-
-    if(body.classList.contains("hearts-off")){
-      heartBtn.textContent = "Show Hearts";
-    }else{
-      heartBtn.textContent = "Stop Hearts";
-    }
-  }
-
-  if(themeBtn){
-    themeBtn.addEventListener("click", function(){
-      const currentTheme = root.getAttribute("data-theme");
-      const nextTheme = currentTheme === "light" ? "dark" : "light";
-
-      root.setAttribute("data-theme", nextTheme);
-      localStorage.setItem("hugs-theme", nextTheme);
+          updateThemeButton();
+        });
+      }
 
       updateThemeButton();
-    });
-  }
+    })();
+  </script>
 
-  if(heartBtn){
-    heartBtn.addEventListener("click", function(){
-      body.classList.toggle("hearts-off");
-
-      const heartsOff = body.classList.contains("hearts-off");
-
-      localStorage.setItem("hugs-hearts", heartsOff ? "off" : "on");
-
-      updateHeartButton();
-    });
-  }
-
-  updateThemeButton();
-  updateHeartButton();
-})();
-</script>
-</body></html>
+</body>
+</html>
