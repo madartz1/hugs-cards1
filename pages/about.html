@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>About HUGS | Help Under Good Service</title>
+  <meta name="description" content="HUGS is a tough brand made with love, faith, conviction, and real lived experience. Built by a struggling artist and family surviving hard times while helping others find resources, support, and hope." />
+
+  <style>
+    :root{
+      --bg:#050b18;
+      --bg2:#07131f;
+      --panel:#0A1A2A;
+      --text:#EAF2FF;
+      --muted:rgba(234,242,255,.76);
+      --soft:rgba(234,242,255,.56);
+      --blue:#00E5FF;
+      --blue2:#00BFFF;
+      --gold:#FFD36A;
+      --red:#ff4f7b;
+      --line:rgba(255,255,255,.14);
+      --glass:rgba(255,255,255,.07);
+      --shadow:0 24px 80px rgba(0,0,0,.42);
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box}
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(0,229,255,.18), transparent 34%),
+        radial-gradient(circle at top right, rgba(255,79,123,.13), transparent 30%),
+        linear-gradient(180deg, #050b18 0%, #07131f 50%, #050b18 100%);
+      overflow-x:hidden;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .page{
+      position:relative;
+      z-index:2;
+    }
+
+    .floating-heart{
+      position:fixed;
+      bottom:-40px;
+      color:rgba(255,79,123,.55);
+      pointer-events:none;
+      animation:floatUp linear infinite;
+      z-index:1;
+      filter:drop-shadow(0 0 12px rgba(255,79,123,.45));
+    }
+
+    @keyframes floatUp{
+      from{
+        transform:translateY(0) scale(.8) rotate(0deg);
+        opacity:0;
+      }
+      12%{opacity:1}
+      to{
+        transform:translateY(-115vh) scale(1.35) rotate(18deg);
+        opacity:0;
+      }
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter:blur(18px);
+      background:rgba(5,11,24,.74);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      max-width:1180px;
+      margin:0 auto;
+      padding:14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:max-content;
+    }
+
+    .logo-box{
+      width:48px;
+      height:48px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(145deg, rgba(0,229,255,.18), rgba(255,255,255,.06));
+      border:1px solid rgba(0,229,255,.35);
+      box-shadow:0 0 24px rgba(0,229,255,.18);
+      font-size:24px;
+    }
+
+    .brand strong{
+      display:block;
+      letter-spacing:.08em;
+      font-size:1rem;
+    }
+
+    .brand span{
+      display:block;
+      color:var(--muted);
+      font-size:.78rem;
+      margin-top:2px;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      padding:10px 12px;
+      border-radius:999px;
+      font-size:.92rem;
+      transition:.25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      color:white;
+      background:rgba(0,229,255,.11);
+      box-shadow:0 0 18px rgba(0,229,255,.13);
+    }
+
+    .hero{
+      max-width:1180px;
+      margin:0 auto;
+      padding:82px 18px 40px;
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:34px;
+      align-items:center;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 14px;
+      border:1px solid rgba(0,229,255,.28);
+      border-radius:999px;
+      background:rgba(0,229,255,.08);
+      color:#dffaff;
+      box-shadow:0 0 26px rgba(0,229,255,.14);
+      font-size:.9rem;
+      margin-bottom:20px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(2.4rem, 7vw, 5.7rem);
+      line-height:.96;
+      letter-spacing:-.06em;
+    }
+
+    .gradient-text{
+      background:linear-gradient(90deg, #ffffff, var(--blue), var(--gold));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow:0 0 30px rgba(0,229,255,.12);
+    }
+
+    .hero-lead{
+      margin:22px 0 0;
+      color:var(--muted);
+      font-size:1.15rem;
+      line-height:1.75;
+      max-width:760px;
+    }
+
+    .hero-card{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04)),
+        radial-gradient(circle at top, rgba(0,229,255,.13), transparent 55%);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-card:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:linear-gradient(135deg, rgba(0,229,255,.25), transparent 28%, rgba(255,211,106,.18));
+      opacity:.35;
+      pointer-events:none;
+    }
+
+    .hero-card > *{
+      position:relative;
+      z-index:2;
+    }
+
+    .quote-mark{
+      font-size:4rem;
+      line-height:1;
+      color:var(--blue);
+      text-shadow:0 0 22px rgba(0,229,255,.55);
+    }
+
+    .founder-quote{
+      margin:0;
+      color:#fff;
+      font-size:1.26rem;
+      line-height:1.55;
+      font-weight:700;
+    }
+
+    .quote-sub{
+      margin:18px 0 0;
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:28px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      border-radius:999px;
+      padding:13px 18px;
+      font-weight:800;
+      border:1px solid rgba(255,255,255,.16);
+      transition:.25s ease;
+    }
+
+    .btn-primary{
+      color:#00131a;
+      background:linear-gradient(90deg, var(--blue), var(--blue2));
+      box-shadow:0 0 26px rgba(0,229,255,.35);
+    }
+
+    .btn-secondary{
+      color:white;
+      background:rgba(255,255,255,.08);
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      filter:brightness(1.08);
+    }
+
+    section{
+      max-width:1180px;
+      margin:0 auto;
+      padding:34px 18px;
+    }
+
+    .section-title{
+      margin:0 0 14px;
+      font-size:clamp(1.8rem, 4vw, 3rem);
+      letter-spacing:-.04em;
+    }
+
+    .section-lead{
+      color:var(--muted);
+      font-size:1.08rem;
+      line-height:1.75;
+      max-width:900px;
+      margin:0;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+      margin-top:24px;
+    }
+
+    .card{
+      background:rgba(255,255,255,.065);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:22px;
+      box-shadow:0 18px 60px rgba(0,0,0,.25);
+    }
+
+    .card h3{
+      margin:0 0 10px;
+      font-size:1.18rem;
+    }
+
+    .card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    .story{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.035));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:30px;
+      box-shadow:var(--shadow);
+      margin-top:24px;
+    }
+
+    .story p{
+      color:var(--muted);
+      font-size:1.05rem;
+      line-height:1.85;
+      margin:0 0 18px;
+    }
+
+    .story p:last-child{
+      margin-bottom:0;
+    }
+
+    .highlight{
+      color:white;
+      font-weight:800;
+    }
+
+    .promise-list{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:14px;
+      margin-top:24px;
+    }
+
+    .promise{
+      border:1px solid rgba(0,229,255,.18);
+      background:rgba(0,229,255,.06);
+      border-radius:18px;
+      padding:18px;
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    .promise strong{
+      color:#fff;
+      display:block;
+      margin-bottom:4px;
+    }
+
+    .closing{
+      text-align:center;
+      padding-bottom:76px;
+    }
+
+    .closing-box{
+      max-width:920px;
+      margin:0 auto;
+      border-radius:30px;
+      border:1px solid rgba(0,229,255,.24);
+      background:
+        radial-gradient(circle at top, rgba(0,229,255,.16), transparent 52%),
+        rgba(255,255,255,.06);
+      padding:38px 24px;
+      box-shadow:0 0 45px rgba(0,229,255,.11);
+    }
+
+    .closing h2{
+      margin:0;
+      font-size:clamp(2rem, 5vw, 4rem);
+      letter-spacing:-.05em;
+    }
+
+    .closing p{
+      color:var(--muted);
+      line-height:1.75;
+      font-size:1.08rem;
+      max-width:760px;
+      margin:18px auto 0;
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+      padding:24px 18px;
+      text-align:center;
+      color:var(--soft);
+      font-size:.92rem;
+    }
+
+    @media(max-width:900px){
+      .hero{
+        grid-template-columns:1fr;
+        padding-top:54px;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      .promise-list{
+        grid-template-columns:1fr;
+      }
+
+      .nav{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .nav-links{
+        justify-content:flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <header>
+      <nav class="nav">
+        <a class="brand" href="/">
+          <div class="logo-box">🏠</div>
+          <div>
+            <strong>HUGS</strong>
+            <span>Help Under Good Service</span>
+          </div>
+        </a>
+
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a class="active" href="about.html">About</a>
+          <a href="send-a-hug.html">Send a Hug</a>
+          <a href="resources.html">Resources</a>
+          <a href="shop.html">Shop</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+
+      <section class="hero">
+        <div>
+          <div class="badge">Built from struggle. Powered by love, faith, and conviction.</div>
+
+          <h1>
+            About <span class="gradient-text">HUGS</span>
+          </h1>
+
+          <p class="hero-lead">
+            HUGS was created by a struggling artist, husband, father, and survivor who got tired of watching hard-working people give their money, time, energy, and spirit to systems that do not always give back real reward, real respect, or real change.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn btn-primary" href="send-a-hug.html">Send a Hug</a>
+            <a class="btn btn-secondary" href="resources.html">Find Resources</a>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <div class="quote-mark">“</div>
+          <p class="founder-quote">
+            This is not a soft brand. This is a tough brand made with love.
+          </p>
+          <p class="quote-sub">
+            HUGS was born from real pressure, real pain, real survival, and the decision to turn struggle into service.
+          </p>
+        </aside>
+      </section>
+
+      <section>
+        <h2 class="section-title">Created From Real Life</h2>
+        <p class="section-lead">
+          HUGS is transparent because it comes from real experience. It was not created from comfort. It was created while dealing with family power struggles, mental health challenges around us, trauma, shelter system hardship, poor business practices, and the lack of compassion that too many people face when they are already tired.
+        </p>
+
+        <div class="story">
+          <p>
+            My wife and I know what it feels like to keep pushing while life keeps applying pressure. We know what it feels like to be homeless, to survive tragedy, to live through shelter abuse, and still wake up trying to make something better out of the situation.
+          </p>
+
+          <p>
+            Instead of letting the pain turn us cold, we chose to use it. We remain committed to helping people who need help by sharing resources, building outreach projects, creating support tools, and showing that compassion can still exist even when society forgets people.
+          </p>
+
+          <p>
+            <span class="highlight">HUGS is for the hard-working people, the struggling people, the overlooked people, the artists, the families, the caregivers, the homeless, the tired, the faithful, and anyone trying to survive without losing their heart.</span>
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Why HUGS Exists</h2>
+        <p class="section-lead">
+          HUGS stands for Help Under Good Service. That means we believe good service should be human, honest, fair, and rooted in care. Business should not only take from people. It should reward people, respect people, and help build a better future.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>For Better Business</h3>
+            <p>
+              We support good business practices, honest exchange, and companies that value people instead of just taking their money.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>For Real Support</h3>
+            <p>
+              HUGS is about resources, outreach, digital cards, creative projects, and ways to help people feel seen during hard times.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>For Positive Change</h3>
+            <p>
+              We are building with faith, conviction, and purpose so our kids, families, and communities can see a better way forward.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">What We Believe</h2>
+        <p class="section-lead">
+          We are tired of negative energy, negative people, and systems that drain good people without giving them a fair chance. HUGS is not about pretending life is easy. It is about standing strong, staying creative, and choosing love without being weak.
+        </p>
+
+        <div class="promise-list">
+          <div class="promise">
+            <strong>We believe compassion should be active.</strong>
+            A hug is not only a feeling. It can be a resource, a message, a product, a meal, a connection, or a chance to keep going.
+          </div>
+
+          <div class="promise">
+            <strong>We believe hard work should be respected.</strong>
+            People should not have to work like machines and still feel trapped with no reward, no ownership, and no future.
+          </div>
+
+          <div class="promise">
+            <strong>We believe struggle can become service.</strong>
+            Our pain does not end the story. It gives us a reason to build something that helps others.
+          </div>
+
+          <div class="promise">
+            <strong>We believe love can still be tough.</strong>
+            HUGS is soft enough to care, but strong enough to stand against abuse, unfairness, and poor treatment.
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">What HUGS Is Becoming</h2>
+        <p class="section-lead">
+          HUGS is growing into a community-first brand with digital cards, merch, outreach resources, creative projects, artist opportunities, and support systems for people who need help at different points in life. Every page, product, and project is part of a bigger mission: to turn care into action.
+        </p>
+
+        <div class="story">
+          <p>
+            We want to work with people who appreciate good business, good energy, fairness, creativity, and service. We want to support those who are working hard and those who are not working but still need help, dignity, and a chance.
+          </p>
+
+          <p>
+            HUGS is about building something real from the bottom. It is about taking the pressure, the pain, the shelter experience, the family struggles, the business disappointments, and the lack of compassion — and transforming it into a brand that stands for healing, ownership, and humanity.
+          </p>
+        </div>
+      </section>
+
+      <section class="closing">
+        <div class="closing-box">
+          <h2>Give a Hug. Get a Hug.</h2>
+          <p>
+            HUGS is built for people who still believe in love, even after life tried to make them bitter. This is our story, our stand, and our invitation to build something better together.
+          </p>
+
+          <div class="cta-row" style="justify-content:center;">
+            <a class="btn btn-primary" href="send-a-hug.html">Support the Mission</a>
+            <a class="btn btn-secondary" href="shop.html">Visit the Shop</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      © <span id="year"></span> HUGS — Help Under Good Service. Built with love, faith, and conviction.
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const heartCount = 18;
+
+    for(let i = 0; i < heartCount; i++){
+      const heart = document.createElement("div");
+      heart.className = "floating-heart";
+      heart.textContent = Math.random() > .5 ? "❤" : "♡";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = 12 + Math.random() * 20 + "px";
+      heart.style.animationDuration = 7 + Math.random() * 8 + "s";
+      heart.style.animationDelay = Math.random() * 8 + "s";
+      document.body.appendChild(heart);
+    }
+  </script>
+</body>
+</html>
