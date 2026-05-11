@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,6 +25,18 @@
       --radius:24px;
     }
 
+    html[data-theme="light"]{
+      --bg:#F7FBFF;
+      --bg2:#EEF7FF;
+      --panel:#FFFFFF;
+      --text:#0B2A4A;
+      --muted:rgba(11,42,74,.76);
+      --soft:rgba(11,42,74,.58);
+      --line:rgba(11,42,74,.14);
+      --glass:rgba(255,255,255,.82);
+      --shadow:0 18px 50px rgba(11,42,74,.12);
+    }
+
     *{box-sizing:border-box}
 
     html{
@@ -43,6 +55,14 @@
       overflow-x:hidden;
     }
 
+    html[data-theme="light"] body{
+      color:#0B2A4A;
+      background:
+        radial-gradient(circle at top left, rgba(0,191,255,.16), transparent 34%),
+        radial-gradient(circle at top right, rgba(255,211,106,.20), transparent 30%),
+        linear-gradient(180deg, #F7FBFF 0%, #EEF7FF 50%, #FFFFFF 100%);
+    }
+
     a{
       color:inherit;
       text-decoration:none;
@@ -53,6 +73,10 @@
       z-index:2;
     }
 
+    /* =========================
+       FLOATING HEARTS
+    ========================= */
+
     .floating-heart{
       position:fixed;
       bottom:-40px;
@@ -61,6 +85,11 @@
       animation:floatUp linear infinite;
       z-index:1;
       filter:drop-shadow(0 0 12px rgba(255,79,123,.45));
+    }
+
+    body.hearts-off .floating-heart{
+      display:none !important;
+      animation:none !important;
     }
 
     @keyframes floatUp{
@@ -75,6 +104,10 @@
       }
     }
 
+    /* =========================
+       HEADER / NAV
+    ========================= */
+
     header{
       position:sticky;
       top:0;
@@ -82,6 +115,11 @@
       backdrop-filter:blur(18px);
       background:rgba(5,11,24,.74);
       border-bottom:1px solid var(--line);
+    }
+
+    html[data-theme="light"] header{
+      background:rgba(255,255,255,.84);
+      border-bottom:1px solid rgba(11,42,74,.12);
     }
 
     .nav{
@@ -111,6 +149,12 @@
       border:1px solid rgba(0,229,255,.35);
       box-shadow:0 0 24px rgba(0,229,255,.18);
       font-size:24px;
+    }
+
+    html[data-theme="light"] .logo-box{
+      background:rgba(255,255,255,.80);
+      border-color:rgba(11,42,74,.16);
+      box-shadow:0 0 18px rgba(0,191,255,.16);
     }
 
     .brand strong{
@@ -149,6 +193,68 @@
       box-shadow:0 0 18px rgba(0,229,255,.13);
     }
 
+    html[data-theme="light"] .nav-links a{
+      color:rgba(11,42,74,.74);
+    }
+
+    html[data-theme="light"] .nav-links a:hover,
+    html[data-theme="light"] .nav-links a.active{
+      color:#0B2A4A;
+      background:rgba(11,42,74,.06);
+      box-shadow:0 0 18px rgba(0,191,255,.12);
+    }
+
+    /* =========================
+       SITE CONTROL BUTTONS
+    ========================= */
+
+    .site-controls{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .control-btn{
+      border:1px solid rgba(255,255,255,.14);
+      cursor:pointer;
+      padding:10px 13px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:.82rem;
+      color:#00131a;
+      background:linear-gradient(90deg, var(--blue), var(--blue2));
+      box-shadow:0 0 18px rgba(0,229,255,.25);
+      transition:.25s ease;
+      white-space:nowrap;
+    }
+
+    .control-btn:hover{
+      filter:brightness(1.08);
+      transform:translateY(-1px);
+    }
+
+    .control-btn.heart-btn{
+      color:#260010;
+      background:linear-gradient(90deg, var(--red), #ffb3cf);
+      box-shadow:0 0 18px rgba(255,79,123,.24);
+    }
+
+    html[data-theme="light"] .control-btn{
+      color:white;
+      background:linear-gradient(90deg, #0B2A4A, #00BFFF);
+      border-color:rgba(11,42,74,.12);
+    }
+
+    html[data-theme="light"] .control-btn.heart-btn{
+      color:white;
+      background:linear-gradient(90deg, #8B2D55, #ff5ca8);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
     .hero{
       max-width:1180px;
       margin:0 auto;
@@ -173,6 +279,12 @@
       margin-bottom:20px;
     }
 
+    html[data-theme="light"] .badge{
+      color:#0B2A4A;
+      background:rgba(0,191,255,.10);
+      border-color:rgba(11,42,74,.12);
+    }
+
     h1{
       margin:0;
       font-size:clamp(2.4rem, 7vw, 5.7rem);
@@ -186,6 +298,14 @@
       background-clip:text;
       color:transparent;
       text-shadow:0 0 30px rgba(0,229,255,.12);
+    }
+
+    html[data-theme="light"] .gradient-text{
+      background:linear-gradient(90deg, #0B2A4A, #00A6D6, #B8860B);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow:none;
     }
 
     .hero-lead{
@@ -206,6 +326,14 @@
       box-shadow:var(--shadow);
       position:relative;
       overflow:hidden;
+    }
+
+    html[data-theme="light"] .hero-card{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78)),
+        radial-gradient(circle at top, rgba(0,191,255,.12), transparent 55%);
+      border-color:rgba(11,42,74,.13);
+      box-shadow:var(--shadow);
     }
 
     .hero-card:before{
@@ -235,6 +363,10 @@
       font-size:1.26rem;
       line-height:1.55;
       font-weight:700;
+    }
+
+    html[data-theme="light"] .founder-quote{
+      color:#0B2A4A;
     }
 
     .quote-sub{
@@ -271,6 +403,12 @@
     .btn-secondary{
       color:white;
       background:rgba(255,255,255,.08);
+    }
+
+    html[data-theme="light"] .btn-secondary{
+      color:#0B2A4A;
+      background:rgba(11,42,74,.06);
+      border-color:rgba(11,42,74,.14);
     }
 
     .btn:hover{
@@ -313,6 +451,12 @@
       box-shadow:0 18px 60px rgba(0,0,0,.25);
     }
 
+    html[data-theme="light"] .card{
+      background:rgba(255,255,255,.86);
+      border-color:rgba(11,42,74,.13);
+      box-shadow:var(--shadow);
+    }
+
     .card h3{
       margin:0 0 10px;
       font-size:1.18rem;
@@ -334,6 +478,12 @@
       margin-top:24px;
     }
 
+    html[data-theme="light"] .story{
+      background:rgba(255,255,255,.86);
+      border-color:rgba(11,42,74,.13);
+      box-shadow:var(--shadow);
+    }
+
     .story p{
       color:var(--muted);
       font-size:1.05rem;
@@ -348,6 +498,10 @@
     .highlight{
       color:white;
       font-weight:800;
+    }
+
+    html[data-theme="light"] .highlight{
+      color:#0B2A4A;
     }
 
     .promise-list{
@@ -366,10 +520,19 @@
       line-height:1.65;
     }
 
+    html[data-theme="light"] .promise{
+      background:rgba(0,191,255,.06);
+      border-color:rgba(11,42,74,.12);
+    }
+
     .promise strong{
       color:#fff;
       display:block;
       margin-bottom:4px;
+    }
+
+    html[data-theme="light"] .promise strong{
+      color:#0B2A4A;
     }
 
     .closing{
@@ -387,6 +550,14 @@
         rgba(255,255,255,.06);
       padding:38px 24px;
       box-shadow:0 0 45px rgba(0,229,255,.11);
+    }
+
+    html[data-theme="light"] .closing-box{
+      background:
+        radial-gradient(circle at top, rgba(0,191,255,.12), transparent 52%),
+        rgba(255,255,255,.88);
+      border-color:rgba(11,42,74,.13);
+      box-shadow:var(--shadow);
     }
 
     .closing h2{
@@ -412,6 +583,30 @@
       font-size:.92rem;
     }
 
+    html[data-theme="light"] footer{
+      background:rgba(255,255,255,.70);
+      border-top:1px solid rgba(11,42,74,.10);
+    }
+
+    @media(max-width:1000px){
+      .nav{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .nav-links{
+        justify-content:flex-start;
+      }
+
+      .site-controls{
+        width:100%;
+      }
+
+      .control-btn{
+        flex:1;
+      }
+    }
+
     @media(max-width:900px){
       .hero{
         grid-template-columns:1fr;
@@ -425,14 +620,11 @@
       .promise-list{
         grid-template-columns:1fr;
       }
+    }
 
-      .nav{
-        align-items:flex-start;
-        flex-direction:column;
-      }
-
-      .nav-links{
-        justify-content:flex-start;
+    @media(max-width:560px){
+      .btn{
+        width:100%;
       }
     }
   </style>
@@ -454,20 +646,22 @@
         <div class="nav-links">
           <a href="/">Home</a>
           <a class="active" href="about.html">About</a>
+          <a href="real-world-help.html">Real World Help</a>
           <a href="send-a-hug.html">Send a Hug</a>
           <a href="resources.html">Resources</a>
           <a href="donate-to-paint.html">Donate to Paint</a>
           <a href="shop.html">Shop</a>
         </div>
-        <div class="site-controls">
-  <button id="heartToggle" class="control-btn" type="button">
-    Stop Hearts
-  </button>
 
-  <button id="themeToggle" class="control-btn" type="button">
-    Day Mode
-  </button>
-</div>
+        <div class="site-controls">
+          <button id="heartToggle" class="control-btn heart-btn" type="button">
+            Stop Hearts
+          </button>
+
+          <button id="themeToggle" class="control-btn" type="button">
+            Day Mode
+          </button>
+        </div>
       </nav>
     </header>
 
@@ -486,7 +680,7 @@
           </p>
 
           <div class="cta-row">
-            <a class="btn btn-primary" href="send-a-hug.html">Send a Hug</a>
+            <a class="btn btn-primary" href="real-world-help.html">Support Real World Help</a>
             <a class="btn btn-secondary" href="resources.html">Find Resources</a>
           </div>
         </div>
@@ -607,7 +801,7 @@
           </p>
 
           <div class="cta-row" style="justify-content:center;">
-            <a class="btn btn-primary" href="send-a-hug.html">Support the Mission</a>
+            <a class="btn btn-primary" href="real-world-help.html">Support the Mission</a>
             <a class="btn btn-secondary" href="shop.html">Visit the Shop</a>
           </div>
         </div>
@@ -624,18 +818,95 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    const heartCount = 18;
+    /*
+      HUGS PAGE CONTROLS
+      - Stop / Show Hearts
+      - Day / Night Mode
+      - Saves visitor choice across pages
+    */
 
-    for(let i = 0; i < heartCount; i++){
-      const heart = document.createElement("div");
-      heart.className = "floating-heart";
-      heart.textContent = Math.random() > .5 ? "❤" : "♡";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = 12 + Math.random() * 20 + "px";
-      heart.style.animationDuration = 7 + Math.random() * 8 + "s";
-      heart.style.animationDelay = Math.random() * 8 + "s";
-      document.body.appendChild(heart);
-    }
+    (function(){
+      const root = document.documentElement;
+      const body = document.body;
+      const heartBtn = document.getElementById("heartToggle");
+      const themeBtn = document.getElementById("themeToggle");
+
+      const savedTheme = localStorage.getItem("hugs-theme") || "dark";
+      const savedHearts = localStorage.getItem("hugs-hearts") || "on";
+
+      root.setAttribute("data-theme", savedTheme);
+
+      if(savedHearts === "off"){
+        body.classList.add("hearts-off");
+      }
+
+      function updateThemeButton(){
+        if(!themeBtn) return;
+
+        const currentTheme = root.getAttribute("data-theme");
+
+        if(currentTheme === "light"){
+          themeBtn.textContent = "Night Mode";
+        }else{
+          themeBtn.textContent = "Day Mode";
+        }
+      }
+
+      function updateHeartButton(){
+        if(!heartBtn) return;
+
+        if(body.classList.contains("hearts-off")){
+          heartBtn.textContent = "Show Hearts";
+        }else{
+          heartBtn.textContent = "Stop Hearts";
+        }
+      }
+
+      function createHearts(){
+        const existingHearts = document.querySelectorAll(".floating-heart");
+        if(existingHearts.length > 0) return;
+
+        const heartCount = 18;
+
+        for(let i = 0; i < heartCount; i++){
+          const heart = document.createElement("div");
+          heart.className = "floating-heart";
+          heart.textContent = Math.random() > .5 ? "❤" : "♡";
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.fontSize = 12 + Math.random() * 20 + "px";
+          heart.style.animationDuration = 7 + Math.random() * 8 + "s";
+          heart.style.animationDelay = Math.random() * 8 + "s";
+          document.body.appendChild(heart);
+        }
+      }
+
+      if(themeBtn){
+        themeBtn.addEventListener("click", function(){
+          const currentTheme = root.getAttribute("data-theme");
+          const nextTheme = currentTheme === "light" ? "dark" : "light";
+
+          root.setAttribute("data-theme", nextTheme);
+          localStorage.setItem("hugs-theme", nextTheme);
+
+          updateThemeButton();
+        });
+      }
+
+      if(heartBtn){
+        heartBtn.addEventListener("click", function(){
+          body.classList.toggle("hearts-off");
+
+          const heartsOff = body.classList.contains("hearts-off");
+          localStorage.setItem("hugs-hearts", heartsOff ? "off" : "on");
+
+          updateHeartButton();
+        });
+      }
+
+      createHearts();
+      updateThemeButton();
+      updateHeartButton();
+    })();
   </script>
 </body>
 </html>
