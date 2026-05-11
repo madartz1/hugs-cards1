@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Donate to Paint | HUGS Project Support</title>
+  <meta name="description" content="Support the HUGS mission. Help us keep building digital cards, outreach resources, creative projects, and support tools for those in need." />
+
+  <style>
+    :root{
+      --bg:#050b18;
+      --panel:#07131f;
+      --card:#0A1A2A;
+      --text:#EAF2FF;
+      --muted:rgba(234,242,255,.74);
+      --soft:rgba(234,242,255,.54);
+      --blue:#00E5FF;
+      --blue2:#00BFFF;
+      --gold:#FFD36A;
+      --pink:#ff4f7b;
+      --green:#7CFFB2;
+      --line:rgba(255,255,255,.14);
+      --glass:rgba(255,255,255,.07);
+      --shadow:0 24px 80px rgba(0,0,0,.42);
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box}
+
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(0,229,255,.18), transparent 35%),
+        radial-gradient(circle at top right, rgba(255,79,123,.13), transparent 30%),
+        linear-gradient(180deg, #050b18 0%, #07131f 48%, #050b18 100%);
+      overflow-x:hidden;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:30;
+      backdrop-filter:blur(18px);
+      background:rgba(5,11,24,.74);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      max-width:1180px;
+      margin:0 auto;
+      padding:14px 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .logo-box{
+      width:48px;
+      height:48px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      font-size:24px;
+      background:linear-gradient(145deg, rgba(0,229,255,.18), rgba(255,255,255,.06));
+      border:1px solid rgba(0,229,255,.35);
+      box-shadow:0 0 24px rgba(0,229,255,.18);
+    }
+
+    .brand strong{
+      display:block;
+      letter-spacing:.08em;
+      font-size:1rem;
+    }
+
+    .brand span{
+      display:block;
+      color:var(--muted);
+      font-size:.78rem;
+      margin-top:2px;
+    }
+
+    .nav-links{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      gap:10px;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      padding:10px 12px;
+      border-radius:999px;
+      font-size:.92rem;
+      transition:.25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      color:white;
+      background:rgba(0,229,255,.11);
+      box-shadow:0 0 18px rgba(0,229,255,.14);
+    }
+
+    .page{
+      position:relative;
+      z-index:2;
+    }
+
+    .heart{
+      position:fixed;
+      bottom:-40px;
+      color:rgba(255,79,123,.52);
+      pointer-events:none;
+      animation:floatUp linear infinite;
+      z-index:1;
+      filter:drop-shadow(0 0 12px rgba(255,79,123,.45));
+    }
+
+    @keyframes floatUp{
+      from{
+        transform:translateY(0) scale(.8) rotate(0deg);
+        opacity:0;
+      }
+      12%{opacity:1}
+      to{
+        transform:translateY(-115vh) scale(1.35) rotate(18deg);
+        opacity:0;
+      }
+    }
+
+    .hero{
+      max-width:1180px;
+      margin:0 auto;
+      padding:78px 18px 34px;
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:34px;
+      align-items:center;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 14px;
+      border-radius:999px;
+      background:rgba(0,229,255,.08);
+      border:1px solid rgba(0,229,255,.28);
+      color:#dffaff;
+      box-shadow:0 0 26px rgba(0,229,255,.13);
+      font-size:.9rem;
+      margin-bottom:20px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(2.4rem, 7vw, 5.8rem);
+      line-height:.95;
+      letter-spacing:-.06em;
+    }
+
+    .gradient-text{
+      background:linear-gradient(90deg, #ffffff, var(--blue), var(--gold));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow:0 0 30px rgba(0,229,255,.12);
+    }
+
+    .hero p{
+      color:var(--muted);
+      font-size:1.12rem;
+      line-height:1.75;
+      max-width:780px;
+    }
+
+    .hero-card{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04)),
+        radial-gradient(circle at top, rgba(0,229,255,.13), transparent 55%);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .paint-icon{
+      width:84px;
+      height:84px;
+      border-radius:26px;
+      display:grid;
+      place-items:center;
+      font-size:42px;
+      background:rgba(0,229,255,.09);
+      border:1px solid rgba(0,229,255,.28);
+      box-shadow:0 0 34px rgba(0,229,255,.17);
+      margin-bottom:18px;
+    }
+
+    .hero-card h2{
+      margin:0 0 10px;
+      font-size:1.8rem;
+      letter-spacing:-.03em;
+    }
+
+    .hero-card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:28px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      border-radius:999px;
+      padding:13px 18px;
+      font-weight:800;
+      border:1px solid rgba(255,255,255,.16);
+      cursor:pointer;
+      transition:.25s ease;
+      font-size:.96rem;
+    }
+
+    .btn-primary{
+      color:#00131a;
+      background:linear-gradient(90deg, var(--blue), var(--blue2));
+      box-shadow:0 0 26px rgba(0,229,255,.35);
+    }
+
+    .btn-secondary{
+      color:white;
+      background:rgba(255,255,255,.08);
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      filter:brightness(1.08);
+    }
+
+    section{
+      max-width:1180px;
+      margin:0 auto;
+      padding:34px 18px;
+    }
+
+    .section-title{
+      margin:0 0 12px;
+      font-size:clamp(1.8rem, 4vw, 3rem);
+      letter-spacing:-.04em;
+    }
+
+    .section-lead{
+      color:var(--muted);
+      font-size:1.07rem;
+      line-height:1.75;
+      max-width:900px;
+      margin:0;
+    }
+
+    .impact-grid{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:16px;
+      margin-top:24px;
+    }
+
+    .impact-card{
+      background:rgba(255,255,255,.065);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:20px;
+      box-shadow:0 18px 60px rgba(0,0,0,.22);
+    }
+
+    .impact-card span{
+      font-size:30px;
+      display:block;
+      margin-bottom:10px;
+    }
+
+    .impact-card h3{
+      margin:0 0 8px;
+      font-size:1.05rem;
+    }
+
+    .impact-card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:.95rem;
+    }
+
+    .progress-box{
+      margin-top:26px;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .progress-top{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+
+    .progress-top strong{
+      font-size:1.2rem;
+    }
+
+    .progress-top span{
+      color:var(--muted);
+    }
+
+    .bar{
+      height:16px;
+      border-radius:999px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.08);
+    }
+
+    .bar-fill{
+      height:100%;
+      width:18%;
+      background:linear-gradient(90deg, var(--blue), var(--gold), var(--pink));
+      box-shadow:0 0 24px rgba(0,229,255,.35);
+    }
+
+    .support-area{
+      display:grid;
+      grid-template-columns:.92fr 1.08fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .tier-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .tier{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      padding:18px;
+      border-radius:20px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      cursor:pointer;
+      transition:.25s ease;
+    }
+
+    .tier:hover,
+    .tier.active{
+      border-color:rgba(0,229,255,.5);
+      background:rgba(0,229,255,.09);
+      box-shadow:0 0 24px rgba(0,229,255,.12);
+      transform:translateY(-2px);
+    }
+
+    .tier input{
+      margin-top:5px;
+      accent-color:#00E5FF;
+    }
+
+    .tier strong{
+      display:block;
+      font-size:1.05rem;
+      margin-bottom:4px;
+    }
+
+    .tier small{
+      color:var(--gold);
+      font-weight:800;
+    }
+
+    .tier p{
+      margin:6px 0 0;
+      color:var(--muted);
+      line-height:1.55;
+      font-size:.94rem;
+    }
+
+    .form-card{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .form-card h3{
+      margin:0 0 8px;
+      font-size:1.65rem;
+      letter-spacing:-.03em;
+    }
+
+    .form-card p{
+      margin:0 0 18px;
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    label{
+      display:block;
+      margin:14px 0 7px;
+      color:#fff;
+      font-weight:700;
+      font-size:.94rem;
+    }
+
+    input,
+    textarea,
+    select{
+      width:100%;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:16px;
+      background:rgba(0,0,0,.22);
+      color:white;
+      padding:13px 14px;
+      outline:none;
+      font-size:1rem;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus{
+      border-color:rgba(0,229,255,.55);
+      box-shadow:0 0 0 4px rgba(0,229,255,.08);
+    }
+
+    textarea{
+      min-height:110px;
+      resize:vertical;
+    }
+
+    .notice{
+      margin-top:14px;
+      color:var(--soft);
+      font-size:.86rem;
+      line-height:1.55;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .transparency{
+      background:
+        radial-gradient(circle at top left, rgba(255,211,106,.12), transparent 38%),
+        rgba(255,255,255,.055);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:26px;
+      box-shadow:var(--shadow);
+    }
+
+    .transparency ul{
+      margin:18px 0 0;
+      padding-left:20px;
+      color:var(--muted);
+      line-height:1.8;
+    }
+
+    .closing{
+      text-align:center;
+      padding-bottom:72px;
+    }
+
+    .closing-box{
+      max-width:920px;
+      margin:0 auto;
+      border-radius:30px;
+      border:1px solid rgba(0,229,255,.24);
+      background:
+        radial-gradient(circle at top, rgba(0,229,255,.16), transparent 52%),
+        rgba(255,255,255,.06);
+      padding:38px 24px;
+      box-shadow:0 0 45px rgba(0,229,255,.11);
+    }
+
+    .closing h2{
+      margin:0;
+      font-size:clamp(2rem, 5vw, 4rem);
+      letter-spacing:-.05em;
+    }
+
+    .closing p{
+      color:var(--muted);
+      line-height:1.75;
+      font-size:1.08rem;
+      max-width:760px;
+      margin:18px auto 0;
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+      padding:24px 18px;
+      text-align:center;
+      color:var(--soft);
+      font-size:.92rem;
+    }
+
+    @media(max-width:980px){
+      .hero,
+      .support-area{
+        grid-template-columns:1fr;
+      }
+
+      .impact-grid{
+        grid-template-columns:repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width:700px){
+      .nav{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .nav-links{
+        justify-content:flex-start;
+      }
+
+      .impact-grid{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <header>
+      <nav class="nav">
+        <a class="brand" href="/">
+          <div class="logo-box">🏠</div>
+          <div>
+            <strong>HUGS</strong>
+            <span>Help Under Good Service</span>
+          </div>
+        </a>
+
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="about.html">About</a>
+          <a class="active" href="donate-to-paint.html">Donate to Paint</a>
+          <a href="send-a-hug.html">Send a Hug</a>
+          <a href="resources.html">Resources</a>
+          <a href="shop.html">Shop</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+
+      <section class="hero">
+        <div>
+          <div class="badge">Help us paint the next layer of HUGS</div>
+
+          <h1>
+            Donate to <span class="gradient-text">Paint</span>
+          </h1>
+
+          <p>
+            HUGS was built from real struggle, real creativity, and real love. Your support helps us keep building the website, digital hug cards, outreach resources, art projects, community tools, and future support systems for people who need hope, help, and connection.
+          </p>
+
+          <p>
+            Every contribution is a brush stroke toward something bigger: a community-first platform built for people who are tired of being overlooked.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#support">Support the Project</a>
+            <a class="btn btn-secondary" href="#transparency">See Where It Goes</a>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <div class="paint-icon">🎨</div>
+          <h2>What does “Paint” mean?</h2>
+          <p>
+            To paint means to help us build, design, repair, publish, improve, and keep HUGS alive. You are helping us turn pain into purpose, art into action, and support into something people can actually feel.
+          </p>
+        </aside>
+      </section>
+
+      <section>
+        <h2 class="section-title">What Your Support Helps Build</h2>
+        <p class="section-lead">
+          This funnel is for visitors, supporters, family, friends, customers, and community members who believe in what HUGS is becoming.
+        </p>
+
+        <div class="impact-grid">
+          <div class="impact-card">
+            <span>💌</span>
+            <h3>Digital Hug Cards</h3>
+            <p>Helping people send support, love, healing, and appreciation through meaningful digital cards.</p>
+          </div>
+
+          <div class="impact-card">
+            <span>🧭</span>
+            <h3>Resource Pages</h3>
+            <p>Building pages that help people find food, shelter, clothing, crisis support, and local outreach resources.</p>
+          </div>
+
+          <div class="impact-card">
+            <span>🖼️</span>
+            <h3>Artist Projects</h3>
+            <p>Creating space for artists, creative healing, community voting, art showcases, and future gallery projects.</p>
+          </div>
+
+          <div class="impact-card">
+            <span>🏗️</span>
+            <h3>Website Growth</h3>
+            <p>Keeping the HUGS platform running, improving pages, fixing bugs, creating designs, and launching new tools.</p>
+          </div>
+        </div>
+
+        <div class="progress-box">
+          <div class="progress-top">
+            <strong>Current Project Goal</strong>
+            <span>$180 raised toward $1,000 starter goal</span>
+          </div>
+          <div class="bar">
+            <div class="bar-fill"></div>
+          </div>
+          <p class="notice">
+            Update this number manually for now. Later, this can connect to Stripe, Netlify Functions, or a database counter.
+          </p>
+        </div>
+      </section>
+
+      <section id="support">
+        <h2 class="section-title">Choose Your Brush Stroke</h2>
+        <p class="section-lead">
+          Pick a support level. You can leave your name, message, or choose to support quietly.
+        </p>
+
+        <div class="support-area" style="margin-top:24px;">
+
+          <div class="tier-list">
+
+            <label class="tier active">
+              <input type="radio" name="tier" value="5" checked />
+              <div>
+                <strong>Small Brush Stroke</strong>
+                <small>$5 Support</small>
+                <p>A simple contribution that helps keep HUGS moving forward.</p>
+              </div>
+            </label>
+
+            <label class="tier">
+              <input type="radio" name="tier" value="10" />
+              <div>
+                <strong>Paint a Hug</strong>
+                <small>$10 Support</small>
+                <p>Helps support digital hug cards, messages, and creative outreach.</p>
+              </div>
+            </label>
+
+            <label class="tier">
+              <input type="radio" name="tier" value="25" />
+              <div>
+                <strong>Resource Builder</strong>
+                <small>$25 Support</small>
+                <p>Helps build resource pages, community tools, and support pages for people in need.</p>
+              </div>
+            </label>
+
+            <label class="tier">
+              <input type="radio" name="tier" value="50" />
+              <div>
+                <strong>Project Fuel</strong>
+                <small>$50 Support</small>
+                <p>Helps fund bigger website improvements, art projects, outreach tools, and HUGS platform growth.</p>
+              </div>
+            </label>
+
+            <label class="tier">
+              <input type="radio" name="tier" value="custom" />
+              <div>
+                <strong>Custom Support</strong>
+                <small>Choose Your Amount</small>
+                <p>Use this if you want to give more or support a specific HUGS project.</p>
+              </div>
+            </label>
+
+          </div>
+
+          <form
+            class="form-card"
+            name="donate-to-paint-support"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            id="supportForm"
+          >
+            <input type="hidden" name="form-name" value="donate-to-paint-support" />
+            <p class="hidden">
+              <label>Do not fill this out: <input name="bot-field" /></label>
+            </p>
+
+            <h3>Leave Your Mark</h3>
+            <p>
+              Add your name and message before checkout. This helps us track supporters and tell the story of who helped paint HUGS into reality.
+            </p>
+
+            <input type="hidden" id="selectedAmount" name="selectedAmount" value="5" />
+
+            <label for="name">Your Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name or supporter name" />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" />
+
+            <label for="displayChoice">Supporter Wall</label>
+            <select id="displayChoice" name="displayChoice">
+              <option value="show-name">You can show my name</option>
+              <option value="anonymous">Keep me anonymous</option>
+              <option value="ask-first">Ask me first</option>
+            </select>
+
+            <label for="message">Message of Support</label>
+            <textarea id="message" name="message" placeholder="Write a short message for HUGS..."></textarea>
+
+            <button class="btn btn-primary" type="submit" style="width:100%; margin-top:18px;">
+              Continue to Secure Support Payment
+            </button>
+
+            <p class="notice">
+              Your form message is saved first, then you are redirected to Stripe for secure payment. HUGS is a growing community project. Contributions are project support and are not listed as tax-deductible charitable donations unless stated through a registered nonprofit entity.
+            </p>
+          </form>
+
+        </div>
+      </section>
+
+      <section id="transparency">
+        <div class="transparency">
+          <h2 class="section-title">Transparency Promise</h2>
+          <p class="section-lead">
+            We believe support should be honest. HUGS is being built from the ground up, and every contribution helps us keep going.
+          </p>
+
+          <ul>
+            <li>Website hosting, domain, tools, design, and maintenance.</li>
+            <li>Building and improving the Send a Hug digital card system.</li>
+            <li>Creating resource pages for people facing hard times.</li>
+            <li>Developing HUGS art, gallery, outreach, and community projects.</li>
+            <li>Supporting the time, labor, and creative work needed to keep HUGS alive.</li>
+            <li>Future outreach efforts connected to food, clothing, shelter resources, and community help.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="closing">
+        <div class="closing-box">
+          <h2>Help Paint the Future</h2>
+          <p>
+            HUGS is more than a website. It is a stand against hopelessness, poor treatment, negative energy, and systems that forget people. Your support helps us keep building something made with love, toughness, faith, and purpose.
+          </p>
+
+          <div class="cta-row" style="justify-content:center;">
+            <a class="btn btn-primary" href="#support">Donate to Paint</a>
+            <a class="btn btn-secondary" href="about.html">Read Our Story</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      © <span id="year"></span> HUGS — Help Under Good Service. Built with love, faith, conviction, and community support.
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    /*
+      STEP 1:
+      Replace these placeholder Stripe links with your real Stripe Payment Links.
+
+      You can make one Stripe Payment Link for each amount:
+      $5, $10, $25, $50, and Custom.
+
+      Example:
+      5: "https://buy.stripe.com/your-real-five-dollar-link"
+    */
+
+    const STRIPE_LINKS = {
+      "5": "YOUR_STRIPE_5_DOLLAR_PAYMENT_LINK",
+      "10": "YOUR_STRIPE_10_DOLLAR_PAYMENT_LINK",
+      "25": "YOUR_STRIPE_25_DOLLAR_PAYMENT_LINK",
+      "50": "YOUR_STRIPE_50_DOLLAR_PAYMENT_LINK",
+      "custom": "YOUR_STRIPE_CUSTOM_AMOUNT_PAYMENT_LINK"
+    };
+
+    const tiers = document.querySelectorAll(".tier");
+    const radios = document.querySelectorAll("input[name='tier']");
+    const selectedAmount = document.getElementById("selectedAmount");
+    const form = document.getElementById("supportForm");
+
+    tiers.forEach((tier) => {
+      tier.addEventListener("click", () => {
+        tiers.forEach(t => t.classList.remove("active"));
+        tier.classList.add("active");
+
+        const radio = tier.querySelector("input[name='tier']");
+        radio.checked = true;
+        selectedAmount.value = radio.value;
+      });
+    });
+
+    radios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        selectedAmount.value = radio.value;
+      });
+    });
+
+    function encode(data){
+      return new URLSearchParams(data).toString();
+    }
+
+    form.addEventListener("submit", async function(e){
+      e.preventDefault();
+
+      const amount = selectedAmount.value;
+      const stripeUrl = STRIPE_LINKS[amount];
+
+      if(!stripeUrl || stripeUrl.includes("YOUR_STRIPE")){
+        alert("Add your real Stripe Payment Link for the $" + amount + " support level first.");
+        return;
+      }
+
+      const formData = new FormData(form);
+
+      try{
+        await fetch("/", {
+          method:"POST",
+          headers:{ "Content-Type":"application/x-www-form-urlencoded" },
+          body:encode(formData)
+        });
+      }catch(error){
+        console.log("Netlify form save issue:", error);
+      }
+
+      window.location.href = stripeUrl;
+    });
+
+    const heartCount = 16;
+
+    for(let i = 0; i < heartCount; i++){
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = Math.random() > .5 ? "❤" : "♡";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = 12 + Math.random() * 20 + "px";
+      heart.style.animationDuration = 7 + Math.random() * 8 + "s";
+      heart.style.animationDelay = Math.random() * 8 + "s";
+      document.body.appendChild(heart);
+    }
+  </script>
+
+</body>
+</html>
