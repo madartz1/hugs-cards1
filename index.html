@@ -215,6 +215,150 @@ footer{
   nav{justify-content:flex-start}
   h1{letter-spacing:-1px}
 }
+  /* =========================
+   HUGS VISITOR CONTROLS
+========================= */
+
+.site-controls{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.control-btn{
+  border:none;
+  cursor:pointer;
+  padding:9px 12px;
+  border-radius:999px;
+  font-weight:800;
+  font-size:.82rem;
+  color:#00131a;
+  background:linear-gradient(90deg, #00E5FF, #00BFFF);
+  box-shadow:0 0 16px rgba(0,229,255,.25);
+}
+
+.control-btn:hover{
+  filter:brightness(1.08);
+  transform:translateY(-1px);
+}
+
+/* Stops floating hearts on all pages */
+body.hearts-off .heart,
+body.hearts-off .floating-heart{
+  display:none !important;
+  animation:none !important;
+}
+
+/* =========================
+   DAY MODE / LIGHT MODE
+========================= */
+
+html[data-theme="light"]{
+  --bg:#F7FBFF;
+  --bg2:#EEF7FF;
+  --panel:#FFFFFF;
+  --card:#FFFFFF;
+  --text:#0B2A4A;
+  --muted:rgba(11,42,74,.76);
+  --soft:rgba(11,42,74,.58);
+  --line:rgba(11,42,74,.14);
+  --glass:rgba(255,255,255,.82);
+  --shadow:0 18px 50px rgba(11,42,74,.12);
+}
+
+/* Force older pages to become eye-friendly too */
+html[data-theme="light"] body{
+  color:#0B2A4A !important;
+  background:
+    radial-gradient(circle at top left, rgba(0,191,255,.16), transparent 34%),
+    radial-gradient(circle at top right, rgba(255,211,106,.18), transparent 30%),
+    linear-gradient(180deg, #F7FBFF 0%, #EEF7FF 48%, #FFFFFF 100%) !important;
+}
+
+html[data-theme="light"] header{
+  background:rgba(255,255,255,.82) !important;
+  border-bottom:1px solid rgba(11,42,74,.12) !important;
+}
+
+html[data-theme="light"] .card,
+html[data-theme="light"] .hero-card,
+html[data-theme="light"] .form-card,
+html[data-theme="light"] .story,
+html[data-theme="light"] .progress-box,
+html[data-theme="light"] .transparency,
+html[data-theme="light"] .closing-box,
+html[data-theme="light"] .impact-card,
+html[data-theme="light"] .tier,
+html[data-theme="light"] section{
+  color:#0B2A4A;
+}
+
+html[data-theme="light"] .card,
+html[data-theme="light"] .hero-card,
+html[data-theme="light"] .form-card,
+html[data-theme="light"] .story,
+html[data-theme="light"] .progress-box,
+html[data-theme="light"] .transparency,
+html[data-theme="light"] .closing-box,
+html[data-theme="light"] .impact-card,
+html[data-theme="light"] .tier{
+  background:rgba(255,255,255,.86) !important;
+  border-color:rgba(11,42,74,.13) !important;
+  box-shadow:0 18px 50px rgba(11,42,74,.12) !important;
+}
+
+html[data-theme="light"] p,
+html[data-theme="light"] .section-lead,
+html[data-theme="light"] .hero p,
+html[data-theme="light"] .hero-card p,
+html[data-theme="light"] .card p,
+html[data-theme="light"] .impact-card p,
+html[data-theme="light"] .quote-sub,
+html[data-theme="light"] .notice,
+html[data-theme="light"] footer,
+html[data-theme="light"] .brand span,
+html[data-theme="light"] .nav-links a{
+  color:rgba(11,42,74,.74) !important;
+}
+
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] strong,
+html[data-theme="light"] label,
+html[data-theme="light"] .founder-quote{
+  color:#0B2A4A !important;
+}
+
+html[data-theme="light"] input,
+html[data-theme="light"] textarea,
+html[data-theme="light"] select{
+  background:#FFFFFF !important;
+  color:#0B2A4A !important;
+  border-color:rgba(11,42,74,.18) !important;
+}
+
+html[data-theme="light"] .btn-secondary{
+  color:#0B2A4A !important;
+  background:rgba(11,42,74,.06) !important;
+  border-color:rgba(11,42,74,.14) !important;
+}
+
+html[data-theme="light"] .control-btn{
+  color:white;
+  background:linear-gradient(90deg, #0B2A4A, #00BFFF);
+}
+
+@media(max-width:900px){
+  .site-controls{
+    width:100%;
+  }
+
+  .control-btn{
+    flex:1;
+  }
+}
 </style></head>
 <body>
 <header>
