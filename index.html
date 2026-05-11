@@ -381,4 +381,76 @@ html[data-theme="light"] .control-btn{
   <div class="cta-row"><a class="btn pink" href="/pages/send-a-hug">Open Send A Hug</a></div>
 </section>
 <footer><p>© HUGS — Help Under Good Service</p></footer>
+  <script>
+/* =========================
+   HUGS GLOBAL CONTROLS
+   Hearts On/Off + Day/Night Mode
+========================= */
+
+(function(){
+  const root = document.documentElement;
+  const body = document.body;
+
+  const heartBtn = document.getElementById("heartToggle");
+  const themeBtn = document.getElementById("themeToggle");
+
+  const savedTheme = localStorage.getItem("hugs-theme") || "dark";
+  const savedHearts = localStorage.getItem("hugs-hearts") || "on";
+
+  root.setAttribute("data-theme", savedTheme);
+
+  if(savedHearts === "off"){
+    body.classList.add("hearts-off");
+  }
+
+  function updateThemeButton(){
+    if(!themeBtn) return;
+
+    const currentTheme = root.getAttribute("data-theme");
+
+    if(currentTheme === "light"){
+      themeBtn.textContent = "Night Mode";
+    }else{
+      themeBtn.textContent = "Day Mode";
+    }
+  }
+
+  function updateHeartButton(){
+    if(!heartBtn) return;
+
+    if(body.classList.contains("hearts-off")){
+      heartBtn.textContent = "Show Hearts";
+    }else{
+      heartBtn.textContent = "Stop Hearts";
+    }
+  }
+
+  if(themeBtn){
+    themeBtn.addEventListener("click", function(){
+      const currentTheme = root.getAttribute("data-theme");
+      const nextTheme = currentTheme === "light" ? "dark" : "light";
+
+      root.setAttribute("data-theme", nextTheme);
+      localStorage.setItem("hugs-theme", nextTheme);
+
+      updateThemeButton();
+    });
+  }
+
+  if(heartBtn){
+    heartBtn.addEventListener("click", function(){
+      body.classList.toggle("hearts-off");
+
+      const heartsOff = body.classList.contains("hearts-off");
+
+      localStorage.setItem("hugs-hearts", heartsOff ? "off" : "on");
+
+      updateHeartButton();
+    });
+  }
+
+  updateThemeButton();
+  updateHeartButton();
+})();
+</script>
 </body></html>
